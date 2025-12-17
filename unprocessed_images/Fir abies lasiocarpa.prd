@@ -1,0 +1,58 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Product xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Components>
+    <Component>
+      <MaterialGRUID>3774</MaterialGRUID>
+      <MaterialIdentity>1164</MaterialIdentity>
+      <ProcessName />
+      <SecondaryProcessName />
+      <GradeName>Virgin</GradeName>
+      <EolName>Downcycle</EolName>
+      <Mass>0.15</Mass>
+      <Length>0</Length>
+      <RemovedPercentage>0</RemovedPercentage>
+      <RecoveryRatio>100</RecoveryRatio>
+      <Quantity>1000</Quantity>
+      <RecycledPercentage>0</RecycledPercentage>
+    </Component>
+  </Components>
+  <Transports>
+    <Transport>
+      <Type>Truck 16-32t, EURO 5</Type>
+      <Distance>2000</Distance>
+    </Transport>
+  </Transports>
+  <Processes />
+  <UserRecords />
+  <CustomPrimaryProcesses />
+  <CustomSecondaryProcesses />
+  <CustomFinishingProcesses />
+  <DbName>Level 3</DbName>
+  <Name>Fir abies lasiocarpa</Name>
+  <IncludeCostAnalysis>false</IncludeCostAnalysis>
+  <Width>0</Width>
+  <Height>0</Height>
+  <Depth>0</Depth>
+  <CountryOfProduction>The Whole World</CountryOfProduction>
+  <CountryOfUse>Europe</CountryOfUse>
+  <FuelRate>Domestic</FuelRate>
+  <UseRecycleFraction>false</UseRecycleFraction>
+  <IsPowered>false</IsPowered>
+  <IsMobile>false</IsMobile>
+  <MobileTransportType>Diesel - ocean shipping</MobileTransportType>
+  <StaticFuelType>Electric to thermal</StaticFuelType>
+  <StaticUsageHoursPerDay>0</StaticUsageHoursPerDay>
+  <StaticUsageDaysPerYear>0</StaticUsageDaysPerYear>
+  <StaticPowerUnitSymbol>W</StaticPowerUnitSymbol>
+  <StaticPowerRating>0</StaticPowerRating>
+  <MobileDistanceKmPerDay>0</MobileDistanceKmPerDay>
+  <MobileUsageDaysPerYear>0</MobileUsageDaysPerYear>
+  <ProductLife>5</ProductLife>
+  <HeaderStates>
+    <ProductHeaderExpanded>false</ProductHeaderExpanded>
+    <MateriaHeaderExpanded>true</MateriaHeaderExpanded>
+    <TransportHeaderExpanded>true</TransportHeaderExpanded>
+    <UseHeaderExpanded>true</UseHeaderExpanded>
+    <ReportHeaderExpanded>true</ReportHeaderExpanded>
+  </HeaderStates>
+</Product>

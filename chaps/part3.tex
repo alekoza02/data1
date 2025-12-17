@@ -1,0 +1,136 @@
+\section{Exercise with Granta}
+
+\paragraph{Overview:} L'oggetto a noi assegnato è l'elmetto da bici (più precisamente il guscio esterno). Ecco riportato in ordine il processo di selezione dei due miglior materiali candidati:
+
+\begin{itemize}
+    \item Selezione dei material indices dalla seguente \href{https://www.ansys.com/content/dam/amp/2021/august/webpage-requests/education-resources-dam-upload-batch-6/performance-indices-booklet-bokpeien22.pdf}{\textit{tabella}}.
+    \item Applicazione dei limiti
+    \item Applicazione di un material index (costo)
+    \item Selezione del materiale più cheap
+    \item Rimozione del material index relativo al costo e selezione del material più expensive
+\end{itemize}
+
+\paragraph{Material indeces:} Prima di tutto scegliamo la geometria che meglio approssima l'oggetto finale che dobbiamo costruire. Successivamente ci siamo basati su Stiffness-limited-Design at minimum mass.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth]{images/dome_data.png}
+    \caption{Function and Constraints and formula to maximize}
+    \label{fig:dome_1}
+\end{figure}
+
+\noindent Successivamente massimizziamo e Strength-limited-Design at minimum mass:
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth]{images/dome_data2.png}
+    \caption{Function and Constraints and formula to maximize}
+    \label{fig:dome_2}
+\end{figure}
+
+\noindent I seguenti Ashby chart:
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth]{images/mappa stifness comp.JPG}
+    \caption{Stiffness-limited-Design at minimum mass}
+    \label{fig:ashby_chart_1}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth]{images/mappa strenght comp.JPG}
+    \caption{Strength-limited-Design at minimum mass}
+    \label{fig:ashby_chart_2}
+\end{figure}
+
+Applicando la formula dei material indices, per ogni grafico abbiamo posizionato una retta di pendenza 1 in modo da restringere il numero di candidates materials e massimizzare le proprietà.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth]{images/Stiffness.JPG}
+    \caption{Maximizing Stiffness-limited-Design at minimum mass}
+    \label{fig:min_ashby_chart_1}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth]{images/Strength.JPG}
+    \caption{Maximizing Strength-limited-Design at minimum mass}
+    \label{fig:min_ashby_chart_2}
+\end{figure}
+
+\noindent Come si può vedere dai grafici le rette sono state posizionate in modo da mediare sulla selezione delle proprietà.
+
+\paragraph{Costi:} Abbiamo impostato un limite sulla geometria del nostro materiale in modo da avere una geometria il più simile ad un casco da bici, come riportato in Fig. \ref{fig:forma}. Questo limite permette al programma di selezionare tutti i materiale che possono ottenere la forma da noi desiderata tramite vari processi industriali.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth]{images/forma.JPG}
+    \caption{Selection of the closest resembling geometrical shape}
+    \label{fig:forma}
+\end{figure}
+
+\paragraph{Limits:} Abbiamo impostato il material index basato sul costo (vedi Fig. \ref{fig:dome_3}):
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth]{images/dome_data3.png}
+    \caption{fra non ha voglia....}
+    \label{fig:dome_3}
+\end{figure}
+
+\noindent Il seguenti Ashby chart:
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth]{images/costo.JPG}
+    \caption{fra non ha voglia....}
+    \label{fig:costo}
+\end{figure}
+
+Questa volta abbiamo posizionato la retta in modo da selezionare un solo materiale candidato, che corrisponde all'opzione più economica del casco, come riportato in Fig. \ref{fig:cip_ciop}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth]{images/cheap chop.JPG}
+    \caption{Cheap chop}
+    \label{fig:cip_ciop}
+\end{figure}
+
+\noindent Il materiale trovato è \texttt{Fir (abies lasiocarpa) (longitudinal)}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth]{images/material_data_fir.JPG}
+    \caption{Fir footprint}
+    \label{fig:fir_footprint}
+\end{figure}
+
+\paragraph{Selezione del materiale più expensive:} Abbiamo rimosso il material index relativo al costo in modo da poter selezionare un materiale che massimizzi lo Stiffness index. Inoltre abbiamo applicato dei limiti per migliorare la durability: resistenza all'acqua, alla luce solare e infiammabilità.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth]{images/filter.JPG}
+    \caption{Selection of the closest resembling geometrical shape}
+    \label{fig:filtro}
+\end{figure}
+
+\noindent \# TODO add best material Ashby map
+
+\paragraph{Ecoaudit} 
+
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth]{images/ecoaudit_project_carbon_fiber.JPG}
+    \caption{Eco audit carbon fiber}
+    \label{fig:ecoaudit_carbon}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth]{images/ecoaudit_project_fir.JPG}
+    \caption{Eco audit fir}
+    \label{fig:ecoaudit_fir}
+\end{figure}
