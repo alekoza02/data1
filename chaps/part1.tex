@@ -368,5 +368,21 @@ y_proba_1
 output: \texttt{array([[0.02404399, 0.96249222, 0.01346379]])}, meaning the model is 96.249222\% sure the answer is the flower is Virginica. Other probabilities are reffered to `setosa' and `versicolor'.
 
 \paragraph{\textcolor{red}{TODO 3}}
-\paragraph{\textcolor{red}{TODO 4}}
+
+\paragraph{TODO 4} To analize what is going on in the model, we can access an attribute of the random forest called \texttt{feature\_importances\_} to see the values of how important each feature is for the model.
+
+\begin{lstlisting}
+rf_reg1.feature_importances_
+rf_reg2.feature_importances_
+\end{lstlisting}
+
+Here are the results in percentage (importance) \textcolor{red}{Fai confronto tra n\_estimators}:
+
+\begin{itemize}
+    \item 7.329168\% $\to$ sepal length in cm    
+    \item 8.505366\% $\to$ sepal width in cm    
+    \item 45.087325\% $\to$ petal length in cm    
+    \item 39.078141\% $\to$ petal width in cm
+\end{itemize}
+
 \paragraph{\textcolor{red}{TODO 5}}
