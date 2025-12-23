@@ -253,7 +253,120 @@ plt.show()
 \paragraph{TODO 1} We test our own value to check the train dataset.
 
 \begin{lstlisting}
-y_new_prediction = log_reg.predict([[6.0]]) # expected 1 -> Virginica
-print(f"The flower is {"" if y_new_prediction else "NOT "}Virginica")
+    y_new_prediction = log_reg.predict([[6.0]]) # expected 1 -> Virginica
+    print(f"The flower is {"" if y_new_prediction else "NOT "}Virginica")
 \end{lstlisting}
 output: \texttt{The flower is Virginica}
+
+\paragraph{TODO 2} We also want to check the related probability, or in other words, how secure is the answer of the model:
+
+\begin{lstlisting}
+    y_proba_1 = log_reg.predict_proba([[6.0]])
+    y_proba_1
+\end{lstlisting}
+output: \texttt{array([[6.83166501e-09, 9.99999993e-01]])}, meaning the model is 99.9999993\% sure the answer is the flower is Virginica.
+
+\paragraph{TODO 3} Obtain the confusion matrices of the model:
+
+\begin{lstlisting}
+# we choose the training on the petal length
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import confusion_matrix
+
+
+
+X = iris["data"][:, 2][:, None]  # petal length, take the column n 2
+y = (iris["target"] == 2).astype(np.int64)  # this tests if X is = 2. 1 = True if Iris virginica, else 0 = False
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42, stratify = y) # we divide in test and train sets
+
+log_reg = LogisticRegression(random_state=42)
+log_reg.fit(X_train, y_train)
+
+y_train_pred = log_reg.predict(X_train)
+y_test_pred = log_reg.predict(X_test)
+
+j = confusion_matrix(y_train, y_train_pred)
+k = confusion_matrix(y_test, y_test_pred)
+print(j, "\n",k)
+\end{lstlisting}
+
+\noindent output:
+
+\[
+j = \begin{pmatrix}
+77 & 3 \\
+2 & 38
+\end{pmatrix}
+\qquad
+k = \begin{pmatrix}
+19 & 1 \\
+1 & 9
+\end{pmatrix}
+\]
+
+\noindent comments:
+\begin{itemize}
+    \item The values on the anti-diagonal are low and similar between each other. This means a good accuracy  because we have a low number of false positives and false negatives, and are not really different (3, 2 and 1,1) which means that probably the model is not biased.
+    \item After analyzing the dataset distribution, however, we see that Virginica is only 1/3 of the whole dataset; this means that the values of false negatives and false positives cannot be taken like that when the dataset is unbalanced
+    \item As we expected, we obtained that the true positives are about 33\% of the set, while the remaining are the true negatives. 
+    \item This is because 1/3 of the dataset is Virginica (true positive) and the remaining 2/3 are not Virginica (true negatives)
+\end{itemize}
+
+\paragraph{TODO 4} Repeat the previous experience but with all the attributes all-together.
+
+\begin{lstlisting}
+X = iris["data"] # we consider all the features
+y = (iris["target"] == 2).astype(np.int64)  # this tests if X is = 2. 1 = True if Iris virginica, else 0 = False
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42, stratify = y) # we divide in test and train sets
+
+log_reg = LogisticRegression(random_state=42)
+log_reg.fit(X_train, y_train)
+
+y_train_pred = log_reg.predict(X_train)
+y_test_pred = log_reg.predict(X_test)
+
+l = confusion_matrix(y_train, y_train_pred)
+m = confusion_matrix(y_test, y_test_pred)
+print(l, "\n",m)
+\end{lstlisting}
+
+\noindent output:
+\[
+l = \begin{pmatrix}
+78 & 2 \\
+1 & 39
+\end{pmatrix}
+\qquad
+m = \begin{pmatrix}
+20 & 0 \\
+0 & 10
+\end{pmatrix}
+\]
+
+\noindent comments:
+\begin{itemize}
+    \item We see a slight improvement of the false positives and false negatives, especially in the test set: we have zeros on the anti-diagonal.
+\end{itemize}
+
+\subsection{Module 3}
+
+\paragraph{TODO 1} We test our own value to check the train dataset.
+
+\begin{lstlisting}
+y_new_1 = softmax_reg.predict([[4.0, 1]])    # petal length 1.0, petal width 0.5
+y_new_1
+\end{lstlisting}
+output: \texttt{array([1])}
+
+\paragraph{TODO 2} We also want to check the related probability, or in other words, how secure is the answer of the model:
+
+\begin{lstlisting}
+y_proba_1 = softmax_reg.predict_proba([[4.0, 1]])
+y_proba_1
+\end{lstlisting}
+output: \texttt{array([[0.02404399, 0.96249222, 0.01346379]])}, meaning the model is 96.249222\% sure the answer is the flower is Virginica. Other probabilities are reffered to `setosa' and `versicolor'.
+
+\paragraph{\textcolor{red}{TODO 3}}
+\paragraph{\textcolor{red}{TODO 4}}
+\paragraph{\textcolor{red}{TODO 5}}
