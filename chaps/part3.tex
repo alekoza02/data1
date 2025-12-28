@@ -143,4 +143,44 @@ Questa volta abbiamo posizionato la retta in modo da selezionare un solo materia
     \label{fig:ecoaudit_fir}
 \end{figure}
 
-\textcolor{red}{Merge parte di Aleksej - Dario (Ale)}
+\paragraph{Environmental impact analysis} Abbiamo performato un eco audit per valutare impatto ecologico generato dai materiali selezionati, comparando il materiale meno costoso (Fir) con quello più costoso (Cyanate ester/HM carbon fiber). 
+
+Per far ciò abbiamo dovuto compilare le varie categorie inserendo i valori del “Fir (abies lasiocarpa) (l) e del Cyanate ester/HM carbon fiber nell'Eco Audit Projet, tenendo in considerazione i parametri di riciclaggio e fine vita presenti nel database dei due materiali (figure sotto).
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth]{images/material_data_fir_crop.JPG}
+    \caption{Parametri fir}
+    \label{fig:params_fir}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth]{images/material_data_Cy_crop.JPG}
+    \caption{Parametri Cy}
+    \label{fig:params_cy}
+\end{figure}
+
+Nella sezione “Material, manufacture and end of life” abbiamo considerando una quantità di 1000 elmetti, senza contenuto di riciclaggio ed una massa di 0,15 kg (ChatGPT). Per la End of life del materiale è stato scelto Downcycle per entrambi in quanto i due materiali non possono essere riciclati.
+
+È stata inoltre selezionata la modalità di trasporto e la distanza da percorrere per la distribuzione del prodotto (Vedi fig. \ref{fig:ecoaudit_fir} \& \ref{fig:ecoaudit_carbon})
+
+Tenendo in considerazione la durability dei materiali, abbiamo scelto di considerare una product life diversa per i due prodotti (5 anni per quello più economico e 10 per quello più costoso). Vedi fig. \ref{fig:ecoaudit_fir} nella sezione \texttt{Use}.
+
+Otteniamo i seguenti summary chart:
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth]{images/energy_char.png}
+    \caption{Energy chart}
+    \label{fig:energy_char}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth]{images/co2_char.png}
+    \caption{CO2 chart}
+    \label{fig:co2_char}
+\end{figure}
+
+Dai due grafici possiamo dedurre che per nessuno dei due prodotti è possibile compensare la CO2 generata nei processi produttivi. Questo Il Cyanate dal punto di vista della sostenibilità è peggiore rispetto al Fir, sia in termini di energia necessaria alla sua produzione che emissioni di CO2. Il Fir pur non avendo durability e proprietà meccaniche migliori, ha vantaggi maggiori in termini di sostenibilità in quanto è biodegradabile e non produce quantità rilevanti di CO2 nella produzione. 

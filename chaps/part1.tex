@@ -1,7 +1,7 @@
-\section{Exercises with Jupyter + ML}
+\section{Exercises with Jupyter \& Machine Learning}
 
 \subsection{Module 1}
-\paragraph{TODO 1-2} First exploration of basic ML algorithms. MSE which stands for Mean Squared Error, reppresents how well the predicts values. We should note that an MSE of 0 in training is absolute overfitting, resulting almost certinly in a poor performance in test environment. Overall we are testing which model has the LOWEST MSE in test environment.
+\paragraph{TODO 1-2} \# TODO: How do the MSE\_train and MSE\_test compare between the linear and quadratic model?. \# TODO: try to change the size of the datasets (m=50, 200, 500) and see how MSE\_train and MSE\_test change. First exploration of basic ML algorithms. The Mean Squared Error (MSE) represents \textcolor{red}{how well we predict values}. We should note that an MSE of 0 in training is absolute overfitting, resulting almost certainly in a poor performance in test environment. Overall we are testing which model has the LOWEST MSE in test environment.
 
 \begin{table}[!ht]
 \centering
@@ -23,29 +23,30 @@ $N$ & $\text{MSE}_\text{train, linear}$ & $\text{MSE}_\text{train, quad}$ & $\te
 \caption{Comparison of Linear and Quadratic Models for Different Sample Sizes $N$.}
 \end{table}
 
-\paragraph{TODO 3} Demonstration of the overfitting problem using regularization in decision trees (\texttt{min\_samples\_leaf=10}).
+\paragraph{TODO 3} \# TODO: Compute the MSE for tree\_reg3 and tree\_reg4 models, both on the training set and on the test set. Demonstration of the overfitting problem using regularization in decision trees (\texttt{min\_samples\_leaf=10}). Since we generalized the code to support many different sample sizes, we tested it out with the following N: (50, 100, 200, 500, 1000, 2000, 5000).
 
 \begin{table}[!ht]
 \centering
 \resizebox{\textwidth}{!}{%
 \begin{tabular}{c|c|c|c|c}
 \hline
-$N$ & $\text{MSE}_\text{train, Y}$ & $\text{MSE}_\text{test, Y}$ & $\text{MSE}_\text{train, N}$ & $\text{MSE}_\text{test, N}$ \\
+$N$ & $\text{MSE}_\text{train, N}$ & $\text{MSE}_\text{test, N}$ & $\text{MSE}_\text{train, Y}$ & $\text{MSE}_\text{test, Y}$ \\
 \hline
-50    & \cellcolor{mygreen} 0.00 & \cellcolor{myred} 2.61 & \cellcolor{mygreen} 2.54 & \cellcolor{myred} 3.07 \\
-100   & \cellcolor{mygreen} 0.00 & \cellcolor{myred} 1.69 & \cellcolor{mygreen} 0.87 & \cellcolor{myred} 1.34 \\
-200   & \cellcolor{mygreen} 0.00 & \cellcolor{myred} 2.35 & \cellcolor{mygreen} 0.73 & \cellcolor{myred} 1.56 \\
-500   & \cellcolor{mygreen} 0.00 & \cellcolor{myred} 1.92 & \cellcolor{mygreen} 0.89 & \cellcolor{myred} 1.03 \\
-1000  & \cellcolor{mygreen} 0.00 & \cellcolor{myred} 1.70 & \cellcolor{mygreen} 0.82 & \cellcolor{myred} 1.23 \\
-2000  & \cellcolor{mygreen} 0.00 & \cellcolor{myred} 2.17 & \cellcolor{mygreen} 0.79 & \cellcolor{myred} 1.33 \\
-5000  & \cellcolor{mygreen} 0.00 & \cellcolor{myred} 1.89 & \cellcolor{mygreen} 0.79 & \cellcolor{myred} 1.13 \\
+50    & \cellcolor{mygreen} 0.00 & \cellcolor{mygreen} 2.61 & \cellcolor{myred} 2.54 & \cellcolor{myred} 3.07 \\
+100   & \cellcolor{mygreen} 0.00 & \cellcolor{myred} 1.69 & \cellcolor{myred} 0.87 & \cellcolor{mygreen} 1.34 \\
+200   & \cellcolor{mygreen} 0.00 & \cellcolor{myred} 2.35 & \cellcolor{myred} 0.73 & \cellcolor{mygreen} 1.56 \\
+500   & \cellcolor{mygreen} 0.00 & \cellcolor{myred} 1.92 & \cellcolor{myred} 0.89 & \cellcolor{mygreen} 1.03 \\
+1000  & \cellcolor{mygreen} 0.00 & \cellcolor{myred} 1.70 & \cellcolor{myred} 0.82 & \cellcolor{mygreen} 1.23 \\
+2000  & \cellcolor{mygreen} 0.00 & \cellcolor{myred} 2.17 & \cellcolor{myred} 0.79 & \cellcolor{mygreen} 1.33 \\
+5000  & \cellcolor{mygreen} 0.00 & \cellcolor{myred} 1.89 & \cellcolor{myred} 0.79 & \cellcolor{mygreen} 1.13 \\
 \hline
 \end{tabular}%
 }
 \caption{Comparison of Tree Models (Y = with regularization, N = without regularization) for Different Sample Sizes $N$.}
 \end{table}
 
-\paragraph{TODO 4} Here we will try to see which other hyperparameters we can change.
+\paragraph{TODO 4} \# TODO: Look the online documentation of random forests in the scikitlearn library, find other hyperparameters 
+\# Train 2 more random forests regularizing other hyperparameters. Plot the results and compute MSE on both training and test set. Here we will try to see which other hyperparameters we can change.
 
 \begin{lstlisting}
 rf_no_hyp, rf_with_hyp = [], []
@@ -123,13 +124,13 @@ for sample, ris_no_hyp, ris_with_hyp in zip(samples, results_rf_no_hyp, results_
 \hline
 $N$ & \text{Default RF Train MSE} & \text{Default RF Test MSE} & \text{Regularized RF Train MSE} & \text{Regularized RF Test MSE} & \text{Overfitting Reduced?} \\
 \hline
-50    & 0.2963 & 1.3113 & 1.3545 & 1.6156 & NO \\
-100   & 0.1761 & 1.5028 & 0.7173 & 1.2067 & YES \\
-200   & 0.1806 & 1.9127 & 0.6637 & 1.5084 & YES \\
-500   & 0.1972 & 1.4768 & 0.8058 & 1.0025 & YES \\
-1000  & 0.2117 & 1.4009 & 0.7574 & 1.1977 & YES \\
-2000  & 0.1912 & 1.6286 & 0.7572 & 1.1690 & YES \\
-5000  & 0.1979 & 1.4017 & 0.7985 & 1.0554 & YES \\
+50    & 0.2963 & \cellcolor{mygreen} 1.3113 & 1.3545 & \cellcolor{myred} 1.6156 & NO \\
+100   & 0.1761 & \cellcolor{myred} 1.5028 & 0.7173 & \cellcolor{mygreen} 1.2067 & YES \\
+200   & 0.1806 & \cellcolor{myred} 1.9127 & 0.6637 & \cellcolor{mygreen} 1.5084 & YES \\
+500   & 0.1972 & \cellcolor{myred} 1.4768 & 0.8058 & \cellcolor{mygreen} 1.0025 & YES \\
+1000  & 0.2117 & \cellcolor{myred} 1.4009 & 0.7574 & \cellcolor{mygreen} 1.1977 & YES \\
+2000  & 0.1912 & \cellcolor{myred} 1.6286 & 0.7572 & \cellcolor{mygreen} 1.1690 & YES \\
+5000  & 0.1979 & \cellcolor{myred} 1.4017 & 0.7985 & \cellcolor{mygreen} 1.0554 & YES \\
 \hline
 \end{tabular}%
 }
@@ -174,7 +175,9 @@ $N$ & \text{Default RF Train MSE} & \text{Default RF Test MSE} & \text{Regulariz
     \label{fig:rf_comparison_2000}
 \end{figure}
 
-\paragraph{TODO 5} Now let's see the effect of changing just the value \texttt{n\_estimators}. Observations:
+\paragraph{TODO 5} \# TODO: Train a sequence of random forests with different values of the hyperparameter "n\_estimators" (20, 50, 100, 200, 300). 
+\# In each case, compute the MSE on both the training set and the test set. Plot both MSEs vs n\_estimators.
+\# How can I find the optimal value for the hyperparameter "n\_estimators"? Now let's see the effect of changing just the value \texttt{n\_estimators}. Observations:
 \begin{itemize}
     \item Training MSE decreases (or stabilizes) as n\_estimators grows
     \item Test MSE usually decreases at first, then plateaus
@@ -216,7 +219,8 @@ plt.show()
     \label{fig:n_estimators_comparison}
 \end{figure}
 
-\paragraph{TODO 6 (optional)} Let's do the same thing once again, but changing another hyperparameter. In this case we did with: \texttt{max\_depth\_value}.
+\paragraph{TODO 6 (optional)} \# TODO (optional): As I have many hyperparameters in a Random Forest model, how can I find the best values for all of them? 
+\# Repeat the above exercise with another hyperparameter. Let's do the same thing once again, but changing another hyperparameter. In this case we did with: \texttt{max\_depth\_value}.
 
 \begin{lstlisting}
 max_depth_values = [3, 5, 8, 10, 15, 20, None]
@@ -250,7 +254,7 @@ plt.show()
 
 \subsection{Module 2}
 
-\paragraph{TODO 1} We test our own value to check the train dataset.
+\paragraph{TODO 1} \# TODO: Predict the class for another value of petal width. We test our own value to check the train dataset.
 
 \begin{lstlisting}
     y_new_prediction = log_reg.predict([[6.0]]) # expected 1 -> Virginica
@@ -258,7 +262,7 @@ plt.show()
 \end{lstlisting}
 output: \texttt{The flower is Virginica}
 
-\paragraph{TODO 2} We also want to check the related probability, or in other words, how secure is the answer of the model:
+\paragraph{TODO 2} \# TODO: Calculate the probabilities for another value of petal widthWe also want to check the related probability, or in other words, how secure is the answer of the model:
 
 \begin{lstlisting}
     y_proba_1 = log_reg.predict_proba([[6.0]])
@@ -266,7 +270,11 @@ output: \texttt{The flower is Virginica}
 \end{lstlisting}
 output: \texttt{array([[6.83166501e-09, 9.99999993e-01]])}, meaning the model is 99.9999993\% sure the answer is the flower is Virginica.
 
-\paragraph{TODO 3} Obtain the confusion matrices of the model:
+\paragraph{TODO 3} \# TODO: retrain a binary LogisticRegression classifier with only one feature as we just did, 
+\# but first of all split the dataset into a training set (80\% of the data) and test set (20\% of the data).
+\# Use the train\_test\_split function from scikit learn as in example 1.
+\# After training, recompute the confusion matrix and scores on both the training set and the test set.
+\# Can you comment on the differences? Obtain the confusion matrices of the model:
 
 \begin{lstlisting}
 # we choose the training on the petal length
@@ -313,7 +321,11 @@ k = \begin{pmatrix}
     \item This is because 1/3 of the dataset is Virginica (true positive) and the remaining 2/3 are not Virginica (true negatives)
 \end{itemize}
 
-\paragraph{TODO 4} Repeat the previous experience but with all the attributes all-together.
+\paragraph{TODO 4} \# TODO: retrain a binary LogisticRegression classifier but with all the 4 features in the original iris dataset and splitting
+\# into a training set (80\% of the data) and test set (20\% of the data). 
+\# Use the train\_test\_split function from scikit learn as in example 1.
+\# After training, recompute the confusion matrix and scores on both the training set and the test set.
+\# How do the scores compare with the previous classifier (with only one feature)? Repeat the previous experience but with all the attributes all-together.
 
 \begin{lstlisting}
 X = iris["data"] # we consider all the features
@@ -351,38 +363,52 @@ m = \begin{pmatrix}
 
 \subsection{Module 3}
 
-\paragraph{TODO 1} We test our own value to check the train dataset.
+\paragraph{TODO 1} \# TODO: Predict the class for another couple of values of petal length and width. We test our own value to check the train dataset.
 
 \begin{lstlisting}
 y_new_1 = softmax_reg.predict([[4.0, 1]])    # petal length 1.0, petal width 0.5
 y_new_1
 \end{lstlisting}
-output: \texttt{array([1])}
+output: \texttt{array([1])} $\to$ \texttt{versicolor}
 
-\paragraph{TODO 2} We also want to check the related probability, or in other words, how secure is the answer of the model:
+\paragraph{TODO 2} \# TODO: Calculate the probabilities for another couple of values of petal length and width. We also want to check the related probability, or in other words, how secure is the answer of the model:
 
 \begin{lstlisting}
 y_proba_1 = softmax_reg.predict_proba([[4.0, 1]])
 y_proba_1
 \end{lstlisting}
-output: \texttt{array([[0.02404399, 0.96249222, 0.01346379]])}, meaning the model is 96.249222\% sure the answer is the flower is Virginica. Other probabilities are reffered to `setosa' and `versicolor'.
+output: \texttt{array([[0.02404399, 0.96249222, 0.01346379]])}, meaning the model is 96.249222\% sure the answer is the flower is Versicolor. Other probabilities are reffered to `setosa' and `virginica'.
 
-\paragraph{\textcolor{red}{TODO 3}}
+\paragraph{\textcolor{red}{TODO 3}} \# TODO: Now train a Random Forest multiclass classifier on the iris set, using all features available (sepal length and width, 
+\# petal length and width). 
+\# Use the RandomForestClassifier from scikit learn library. Set as n\_estimators=500 and all other hyperparameters with 
+\# default values.
+\# After training, calculate the confusion matrix and scores for this classifier. Compare the results with the
+\# softmax classifier. Try another value of n\_estimators.
 
-\paragraph{TODO 4} To analize what is going on in the model, we can access an attribute of the random forest called \texttt{feature\_importances\_} to see the values of how important each feature is for the model.
+\paragraph{TODO 4} \# TODO: One great advantage of Random Forests is that they can tell you the relative importance of the features. 
+\# Try to get it from the classifier you just trained. It is an attribute of the classifier called "feature\_importances\_".
+\# If your classifier name is "randfor\_clf", then the feature importance values are in "randfor\_clf.feature\_importances\_".
+\# Which is the most important feature for this classifier?
+To analize what is going on in the model, we can access an attribute of the random forest called \texttt{feature\_importances\_} to see the values of how important each feature is for the model.
 
 \begin{lstlisting}
 rf_reg1.feature_importances_
 rf_reg2.feature_importances_
 \end{lstlisting}
 
-Here are the results in percentage (importance) \textcolor{red}{Fai confronto tra n\_estimators}:
+Here are the results in percentage (importance). First value is rf\_reg1 and Second for rf\_reg2:
 
 \begin{itemize}
-    \item 7.329168\% $\to$ sepal length in cm    
-    \item 8.505366\% $\to$ sepal width in cm    
-    \item 45.087325\% $\to$ petal length in cm    
-    \item 39.078141\% $\to$ petal width in cm
+    \item 11.249225 and 12.92683\% $\to$ sepal length in cm    
+    \item 2.311929 and 1.582194\% $\to$ sepal width in cm    
+    \item 44.103046 and 44.47404\% $\to$ petal length in cm    
+    \item 42.3358 and 41.016935\% $\to$ petal width in cm
 \end{itemize}
 
 \paragraph{\textcolor{red}{TODO 5}}
+
+\# TODO: Reload the iris dataset and retrain a softmax and a random forest multiclass classifier, 
+\# but this time first of all split the dataset into a training set and test set as in example 1. 
+\# Then do the training of the training set only and calculate the scores and confusion matrix 
+\# on both the training and test sets. Compare the results.
