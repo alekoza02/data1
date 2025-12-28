@@ -1,11 +1,135 @@
 \section{Exercise with FreeFem++}
 
-\paragraph{Exercise 1}
+\subsection{Exercise 1}
+\paragraph{Part 1:} Same K, simple oval domain, plot the result:
 
-\textcolor{red}{Ex1 caso 1 -> funzione su tutto il dominio equamente (1 plot (medit arcobaleno))}
+\begin{lstlisting}[style=cppstyle]
+// ex 1
+load "medit"
 
-\textcolor{red}{Ex1 caso 2 -> funzione su tutto il dominio, ma K diverse (esiste ellisse interno) (2 plot (medit arcobaleno) con stiffness simili e stiffness molto diverse) Fra - Ale}
+bool debug=true;
 
-\paragraph{Exercise 2}
+real a = 2;
+real b = 3;
 
-\textcolor{red}{VITE (Fra - Ale)}
+// Define mesh boundary
+border C(t=0, 2*pi){x= a*cos(t); y=b*sin(t);}
+
+// The triangulated domain Th is on the left side of its boundary
+mesh Th = buildmesh(C(1000));
+plot(Th, wait=debug);
+
+// The finite element space defined over Th is called here Vh 
+fespace Vh(Th, P2);
+Vh u, v;// Define u and v as piecewise-P1 continuous functions
+
+// Define a function f for the stiffness
+
+real k0 = 1;
+real alpha = 0.5;
+
+func k = k0*(1 + alpha*x);
+
+// Get the clock in second
+real cpu=clock();
+macro grad(u) [dx(u), dy(u)] //
+
+// Define the PDE
+solve Poisson(u, v, solver=CG)
+= int2d(Th)(grad(u)'*grad(v)*k)  // The bilinear part
+- int2d(Th)(k*v)                         // The linear part 
++ on(C, u=0);                            // The Dirichlet boundary condition
+
+// Plot the result
+medit("u", Th, u, wait=debug);
+
+// Display the total computational time
+cout << "CPU time = " << (clock()-cpu) << endl;
+
+\end{lstlisting}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth]{images/fra_ex_1_1.png}
+    \caption{Energy curve @ 961°C}
+    \label{fig:fra_ex_1_1}
+\end{figure}
+
+\paragraph{Part 2:} With different K and a sub - domain, plot the results:
+\begin{lstlisting}[style=cppstyle]
+// ex 1
+load "medit"
+
+bool debug=true;
+
+// external border
+real a = 4;
+real b = 6;
+
+// Define mesh boundary
+border C(t=0, 2*pi){x= a*cos(t); y=b*sin(t);}
+
+// internal border
+real aC = 2;
+real bC = 3;
+
+// The triangulated domain Th is on the left side of its boundary
+mesh Th = buildmesh(C(1000));
+plot(Th, wait=debug);
+
+// The finite element space defined over Th is called here Vh 
+fespace Vh(Th, P2);
+Vh u, v;// Define u and v as piecewise-P1 continuous functions
+
+// Define a function f for the stiffness
+
+real ksoft = 0.5;
+// real kstiff = 1; // ---> case 1
+// real kstiff = 10; // ---> case 2
+real kstiff = 100; // ---> case 3
+
+
+func k = ksoft + (kstiff-ksoft)*((x*x)/(aC*aC)+(y*y)/(bC*bC) <= 1);
+
+// Get the clock in second
+real cpu=clock();
+macro grad(u) [dx(u), dy(u)] //
+
+// Define the PDE
+solve Poisson(u, v, solver=CG)
+= int2d(Th)(grad(u)'*grad(v)*k)  // The bilinear part
+- int2d(Th)(k*v)                         // The linear part 
++ on(C, u=0);                            // The Dirichlet boundary condition
+
+// Plot the result
+medit("u", Th, u, wait=debug);
+
+// Display the total computational time
+cout << "CPU time = " << (clock()-cpu) << endl;
+
+\end{lstlisting}
+
+\begin{figure}[H]
+    \centering
+    \begin{minipage}{0.32\linewidth}
+        \centering
+        \includegraphics[width=\linewidth]{images/fra_ex_1_2_K1.png}
+        \caption*{K = 1}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.32\linewidth}
+        \centering
+        \includegraphics[width=\linewidth]{images/fra_ex_1_2_K10.png}
+        \caption*{K = 10}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.32\linewidth}
+        \centering
+        \includegraphics[width=\linewidth]{images/fra_ex_1_2_K1000.png}
+        \caption*{K = 1000}
+    \end{minipage}
+    \caption{Differences between K}
+    \label{fig:fra_ex_1_2}
+\end{figure}
+
+\subsection{\textcolor{red}{Exercise 2}}

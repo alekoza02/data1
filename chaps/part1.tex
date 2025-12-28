@@ -48,7 +48,7 @@ $N$ & $\text{MSE}_\text{train, N}$ & $\text{MSE}_\text{test, N}$ & $\text{MSE}_\
 \paragraph{TODO 4} \# TODO: Look the online documentation of random forests in the scikitlearn library, find other hyperparameters 
 \# Train 2 more random forests regularizing other hyperparameters. Plot the results and compute MSE on both training and test set. Here we will try to see which other hyperparameters we can change.
 
-\begin{lstlisting}
+\begin{lstlisting}[style=pythonstyle]
 rf_no_hyp, rf_with_hyp = [], []
 
 for X_train, X_test, y_train, y_test in results_linear:
@@ -184,7 +184,7 @@ $N$ & \text{Default RF Train MSE} & \text{Default RF Test MSE} & \text{Regulariz
     \item Optimal n\_estimators = point where test MSE stops improving significantly
 \end{itemize}
 
-\begin{lstlisting}
+\begin{lstlisting}[style=pythonstyle]
 n_estimators_values = [20, 50, 100, 200, 300]
 train_mses = []
 test_mses = []
@@ -222,7 +222,7 @@ plt.show()
 \paragraph{TODO 6 (optional)} \# TODO (optional): As I have many hyperparameters in a Random Forest model, how can I find the best values for all of them? 
 \# Repeat the above exercise with another hyperparameter. Let's do the same thing once again, but changing another hyperparameter. In this case we did with: \texttt{max\_depth\_value}.
 
-\begin{lstlisting}
+\begin{lstlisting}[style=pythonstyle]
 max_depth_values = [3, 5, 8, 10, 15, 20, None]
 train_mses_depth = []
 test_mses_depth = []
@@ -256,7 +256,7 @@ plt.show()
 
 \paragraph{TODO 1} \# TODO: Predict the class for another value of petal width. We test our own value to check the train dataset.
 
-\begin{lstlisting}
+\begin{lstlisting}[style=pythonstyle]
     y_new_prediction = log_reg.predict([[6.0]]) # expected 1 -> Virginica
     print(f"The flower is {"" if y_new_prediction else "NOT "}Virginica")
 \end{lstlisting}
@@ -264,7 +264,7 @@ output: \texttt{The flower is Virginica}
 
 \paragraph{TODO 2} \# TODO: Calculate the probabilities for another value of petal widthWe also want to check the related probability, or in other words, how secure is the answer of the model:
 
-\begin{lstlisting}
+\begin{lstlisting}[style=pythonstyle]
     y_proba_1 = log_reg.predict_proba([[6.0]])
     y_proba_1
 \end{lstlisting}
@@ -276,7 +276,7 @@ output: \texttt{array([[6.83166501e-09, 9.99999993e-01]])}, meaning the model is
 \# After training, recompute the confusion matrix and scores on both the training set and the test set.
 \# Can you comment on the differences? Obtain the confusion matrices of the model:
 
-\begin{lstlisting}
+\begin{lstlisting}[style=pythonstyle]
 # we choose the training on the petal length
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LogisticRegression
@@ -327,7 +327,7 @@ k = \begin{pmatrix}
 \# After training, recompute the confusion matrix and scores on both the training set and the test set.
 \# How do the scores compare with the previous classifier (with only one feature)? Repeat the previous experience but with all the attributes all-together.
 
-\begin{lstlisting}
+\begin{lstlisting}[style=pythonstyle]
 X = iris["data"] # we consider all the features
 y = (iris["target"] == 2).astype(np.int64)  # this tests if X is = 2. 1 = True if Iris virginica, else 0 = False
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42, stratify = y) # we divide in test and train sets
@@ -365,7 +365,7 @@ m = \begin{pmatrix}
 
 \paragraph{TODO 1} \# TODO: Predict the class for another couple of values of petal length and width. We test our own value to check the train dataset.
 
-\begin{lstlisting}
+\begin{lstlisting}[style=pythonstyle]
 y_new_1 = softmax_reg.predict([[4.0, 1]])    # petal length 1.0, petal width 0.5
 y_new_1
 \end{lstlisting}
@@ -373,7 +373,7 @@ output: \texttt{array([1])} $\to$ \texttt{versicolor}
 
 \paragraph{TODO 2} \# TODO: Calculate the probabilities for another couple of values of petal length and width. We also want to check the related probability, or in other words, how secure is the answer of the model:
 
-\begin{lstlisting}
+\begin{lstlisting}[style=pythonstyle]
 y_proba_1 = softmax_reg.predict_proba([[4.0, 1]])
 y_proba_1
 \end{lstlisting}
@@ -392,7 +392,7 @@ output: \texttt{array([[0.02404399, 0.96249222, 0.01346379]])}, meaning the mode
 \# Which is the most important feature for this classifier?
 To analize what is going on in the model, we can access an attribute of the random forest called \texttt{feature\_importances\_} to see the values of how important each feature is for the model.
 
-\begin{lstlisting}
+\begin{lstlisting}[style=pythonstyle]
 rf_reg1.feature_importances_
 rf_reg2.feature_importances_
 \end{lstlisting}
