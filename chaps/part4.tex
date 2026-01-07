@@ -1,8 +1,10 @@
+\newpage
 \section{Exercise with FreeFem++}
 
 \subsection{Exercise 1}
-\paragraph{Part 1:} Same K, simple oval domain, plot the result:
+Deformation of an Elliptical Membrane with Spatially Varying Stiffness
 
+\paragraph{Case 1}: 
 \begin{lstlisting}[style=cppstyle]
 // ex 1
 load "medit"
@@ -42,20 +44,17 @@ solve Poisson(u, v, solver=CG)
 
 // Plot the result
 medit("u", Th, u, wait=debug);
-
-// Display the total computational time
-cout << "CPU time = " << (clock()-cpu) << endl;
-
 \end{lstlisting}
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=\linewidth]{images/fra_ex_1_1.png}
-    \caption{Energy curve @ 961°C}
+    \includegraphics[width=0.5\linewidth]{images/fra_ex_1_1.png}
+    \caption{Case 1: Smooth function of position}
     \label{fig:fra_ex_1_1}
 \end{figure}
 
-\paragraph{Part 2:} With different K and a sub - domain, plot the results:
+\newpage
+\paragraph{Case 2}:
 \begin{lstlisting}[style=cppstyle]
 // ex 1
 load "medit"
@@ -79,7 +78,7 @@ plot(Th, wait=debug);
 
 // The finite element space defined over Th is called here Vh 
 fespace Vh(Th, P2);
-Vh u, v;// Define u and v as piecewise-P1 continuous functions
+Vh u, v;// Define u and v as piecewise-P2 continuous functions
 
 // Define a function f for the stiffness
 
@@ -103,10 +102,6 @@ solve Poisson(u, v, solver=CG)
 
 // Plot the result
 medit("u", Th, u, wait=debug);
-
-// Display the total computational time
-cout << "CPU time = " << (clock()-cpu) << endl;
-
 \end{lstlisting}
 
 \begin{figure}[H]
@@ -128,8 +123,12 @@ cout << "CPU time = " << (clock()-cpu) << endl;
         \includegraphics[width=\linewidth]{images/fra_ex_1_2_K1000.png}
         \caption*{K = 1000}
     \end{minipage}
-    \caption{Differences between K}
+    \caption{Case 2: Piecewise constant stiffness (material zones)}
     \label{fig:fra_ex_1_2}
 \end{figure}
 
+\paragraph{\textcolor{red}{Comments case 1}}
+\paragraph{\textcolor{red}{Comments case 2}} If K increases, the gradient in the plot is more marked.
+
+\newpage
 \subsection{\textcolor{red}{Exercise 2}}

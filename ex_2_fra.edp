@@ -1,0 +1,49 @@
+// Use of a mesh built with GMSH
+// 3D Heat conduction problem
+
+load "iovtk"
+mesh3 Th("vite.mesh");
+// plot(Th, wait=true);
+cout << "labels= " << labels(Th) << endl; // This line output the labels for checking 
+
+// Define the problem parameters
+real cs = 10e-5 // concentration on exposed part cm^-2 
+real Dhead = 1.2e-5; // Diffusion coefficient cm^2/s
+real Dshank = 0.8e-5; // Diffusion coefficient  cm^2/s
+real z0 = 3.5; // Diffusion coefficient
+real l = 0.1; // Diffusion coefficient
+func s = 0.5 * (1 + tanh((z - z0)/ l))
+func D = Dhead + (Dshank- Dhead)*s
+
+// Define the finite element spaces
+fespace Vh(Th, P1); // Linear finite elements for test and trial functions
+
+// Define the unknown function c (concentration)
+Vh c, v;
+
+// Time step parameters
+real dt = 0.01;
+real T = 1.0;
+real time = 0.0;
+
+// Initial condition (example, can be defined as per the problem)
+c = 0;
+
+    // Define the weak form for the time-stepping equation
+    // First integral: (∂c/∂t) * v
+    // Second integral: D * (grad(c) . grad(v))
+    problem transport(c, v)
+        = int3d(Th)( ((c - c_old) / dt) * v )
+        + int3d(Th)(D * grad(c) * grad(v) )
+        + int2d(Th, 2) (qin*v)             // Neumann BC (heat flux) on the head labelled as 2 
+        + int2d(Th, 3) (qout*v)            // Neumann BC (heat flux) on the shank labelled as 3 
+        + on(1, u=ubase);                  // Dirichlet BC on TOP (label 1)
+
+        ; // A weak formulation for the PDE
+    
+    // Solve the problem
+    solve transport;
+
+int[int] Order = [1];
+string DataName = "u";
+savevtk("ex_2_Fra.vtu", Th, u, dataname=DataName, order=Order);

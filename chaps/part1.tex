@@ -1,7 +1,14 @@
 \section{Exercises with Jupyter \& Machine Learning}
 
 \subsection{Module 1}
-\paragraph{TODO 1-2} \# TODO: How do the MSE\_train and MSE\_test compare between the linear and quadratic model?. \# TODO: try to change the size of the datasets (m=50, 200, 500) and see how MSE\_train and MSE\_test change. First exploration of basic ML algorithms. The Mean Squared Error (MSE) represents \textcolor{red}{how well we predict values}. We should note that an MSE of 0 in training is absolute overfitting, resulting almost certainly in a poor performance in test environment. Overall we are testing which model has the LOWEST MSE in test environment.
+\paragraph{TODO 1-2} 
+How do the MSE\_train and MSE\_test compare between the linear and quadratic model?
+Try to change the size of the datasets (m=50, 200, 500) and see how MSE\_train and MSE\_test change. 
+First exploration of basic ML algorithms. 
+The Mean Squared Error (MSE) measures how well the model is able to explain the data it was trained on.
+A low MSE means that the model fits well the data.
+We should note that an MSE of 0 in training is absolute overfitting, resulting almost certainly in a poor performance in test environment. 
+Overall we are testing which model has the LOWEST MSE in test environment.
 
 \begin{table}[!ht]
 \centering
@@ -23,7 +30,10 @@ $N$ & $\text{MSE}_\text{train, linear}$ & $\text{MSE}_\text{train, quad}$ & $\te
 \caption{Comparison of Linear and Quadratic Models for Different Sample Sizes $N$.}
 \end{table}
 
-\paragraph{TODO 3} \# TODO: Compute the MSE for tree\_reg3 and tree\_reg4 models, both on the training set and on the test set. Demonstration of the overfitting problem using regularization in decision trees (\texttt{min\_samples\_leaf=10}). Since we generalized the code to support many different sample sizes, we tested it out with the following N: (50, 100, 200, 500, 1000, 2000, 5000).
+\paragraph{TODO 3} 
+Compute the MSE for tree\_reg3 and tree\_reg4 models, both on the training set and on the test set. 
+Demonstration of the overfitting problem using regularization in decision trees (\texttt{min\_samples\_leaf=10}). 
+Since we generalized the code to support many different sample sizes, we tested it out with the following N: (50, 100, 200, 500, 1000, 2000, 5000).
 
 \begin{table}[!ht]
 \centering
@@ -45,8 +55,9 @@ $N$ & $\text{MSE}_\text{train, N}$ & $\text{MSE}_\text{test, N}$ & $\text{MSE}_\
 \caption{Comparison of Tree Models (Y = with regularization, N = without regularization) for Different Sample Sizes $N$.}
 \end{table}
 
-\paragraph{TODO 4} \# TODO: Look the online documentation of random forests in the scikitlearn library, find other hyperparameters 
-\# Train 2 more random forests regularizing other hyperparameters. Plot the results and compute MSE on both training and test set. Here we will try to see which other hyperparameters we can change.
+\paragraph{TODO 4} 
+Look the online documentation of random forests in the scikitlearn library, find other hyperparameters.
+Train 2 more random forests regularizing other hyperparameters. Plot the results and compute MSE on both training and test set. Here we will try to see which other hyperparameters we can change.
 
 \begin{lstlisting}[style=pythonstyle]
 rf_no_hyp, rf_with_hyp = [], []
@@ -175,9 +186,11 @@ $N$ & \text{Default RF Train MSE} & \text{Default RF Test MSE} & \text{Regulariz
     \label{fig:rf_comparison_2000}
 \end{figure}
 
-\paragraph{TODO 5} \# TODO: Train a sequence of random forests with different values of the hyperparameter "n\_estimators" (20, 50, 100, 200, 300). 
-\# In each case, compute the MSE on both the training set and the test set. Plot both MSEs vs n\_estimators.
-\# How can I find the optimal value for the hyperparameter "n\_estimators"? Now let's see the effect of changing just the value \texttt{n\_estimators}. Observations:
+\paragraph{TODO 5} 
+Train a sequence of random forests with different values of the hyperparameter "n\_estimators" (20, 50, 100, 200, 300). 
+In each case, compute the MSE on both the training set and the test set. Plot both MSEs vs n\_estimators.
+How can I find the optimal value for the hyperparameter "n\_estimators"? Now let's see the effect of changing just the value \texttt{n\_estimators}. 
+Observations:
 \begin{itemize}
     \item Training MSE decreases (or stabilizes) as n\_estimators grows
     \item Test MSE usually decreases at first, then plateaus
@@ -219,8 +232,11 @@ plt.show()
     \label{fig:n_estimators_comparison}
 \end{figure}
 
-\paragraph{TODO 6 (optional)} \# TODO (optional): As I have many hyperparameters in a Random Forest model, how can I find the best values for all of them? 
-\# Repeat the above exercise with another hyperparameter. Let's do the same thing once again, but changing another hyperparameter. In this case we did with: \texttt{max\_depth\_value}.
+\paragraph{TODO 6 (optional)} 
+As I have many hyperparameters in a Random Forest model, how can I find the best values for all of them? 
+Repeat the above exercise with another hyperparameter. Let's do the same thing once again, but changing another hyperparameter. 
+
+In this case we did with: \texttt{max\_depth\_value}.
 
 \begin{lstlisting}[style=pythonstyle]
 max_depth_values = [3, 5, 8, 10, 15, 20, None]
@@ -254,7 +270,8 @@ plt.show()
 
 \subsection{Module 2}
 
-\paragraph{TODO 1} \# TODO: Predict the class for another value of petal width. We test our own value to check the train dataset.
+\paragraph{TODO 1} 
+Predict the class for another value of petal width. We test our own value to check the train dataset.
 
 \begin{lstlisting}[style=pythonstyle]
     y_new_prediction = log_reg.predict([[6.0]]) # expected 1 -> Virginica
@@ -262,7 +279,8 @@ plt.show()
 \end{lstlisting}
 output: \texttt{The flower is Virginica}
 
-\paragraph{TODO 2} \# TODO: Calculate the probabilities for another value of petal widthWe also want to check the related probability, or in other words, how secure is the answer of the model:
+\paragraph{TODO 2} 
+Calculate the probabilities for another value of petal widthWe also want to check the related probability, or in other words, how secure is the answer of the model:
 
 \begin{lstlisting}[style=pythonstyle]
     y_proba_1 = log_reg.predict_proba([[6.0]])
@@ -270,11 +288,11 @@ output: \texttt{The flower is Virginica}
 \end{lstlisting}
 output: \texttt{array([[6.83166501e-09, 9.99999993e-01]])}, meaning the model is 99.9999993\% sure the answer is the flower is Virginica.
 
-\paragraph{TODO 3} \# TODO: retrain a binary LogisticRegression classifier with only one feature as we just did, 
-\# but first of all split the dataset into a training set (80\% of the data) and test set (20\% of the data).
-\# Use the train\_test\_split function from scikit learn as in example 1.
-\# After training, recompute the confusion matrix and scores on both the training set and the test set.
-\# Can you comment on the differences? Obtain the confusion matrices of the model:
+\paragraph{TODO 3} 
+Retrain a binary LogisticRegression classifier with only one feature as we just did, but first of all split the dataset into a training set (80\% of the data) and test set (20\% of the data).
+Use the train\_test\_split function from scikit learn as in example 1.
+After training, recompute the confusion matrix and scores on both the training set and the test set.
+Can you comment on the differences? Obtain the confusion matrices of the model:
 
 \begin{lstlisting}[style=pythonstyle]
 # we choose the training on the petal length
@@ -321,11 +339,11 @@ k = \begin{pmatrix}
     \item This is because 1/3 of the dataset is Virginica (true positive) and the remaining 2/3 are not Virginica (true negatives)
 \end{itemize}
 
-\paragraph{TODO 4} \# TODO: retrain a binary LogisticRegression classifier but with all the 4 features in the original iris dataset and splitting
-\# into a training set (80\% of the data) and test set (20\% of the data). 
-\# Use the train\_test\_split function from scikit learn as in example 1.
-\# After training, recompute the confusion matrix and scores on both the training set and the test set.
-\# How do the scores compare with the previous classifier (with only one feature)? Repeat the previous experience but with all the attributes all-together.
+\paragraph{TODO 4}
+Retrain a binary LogisticRegression classifier but with all the 4 features in the original iris dataset and splitting into a training set (80\% of the data) and test set (20\% of the data). 
+Use the train\_test\_split function from scikit learn as in example 1.
+After training, recompute the confusion matrix and scores on both the training set and the test set.
+How do the scores compare with the previous classifier (with only one feature)? Repeat the previous experience but with all the attributes all-together.
 
 \begin{lstlisting}[style=pythonstyle]
 X = iris["data"] # we consider all the features
@@ -363,7 +381,8 @@ m = \begin{pmatrix}
 
 \subsection{Module 3}
 
-\paragraph{TODO 1} \# TODO: Predict the class for another couple of values of petal length and width. We test our own value to check the train dataset.
+\paragraph{TODO 1}
+Predict the class for another couple of values of petal length and width. We test our own value to check the train dataset.
 
 \begin{lstlisting}[style=pythonstyle]
 y_new_1 = softmax_reg.predict([[4.0, 1]])    # petal length 1.0, petal width 0.5
@@ -371,7 +390,8 @@ y_new_1
 \end{lstlisting}
 output: \texttt{array([1])} $\to$ \texttt{versicolor}
 
-\paragraph{TODO 2} \# TODO: Calculate the probabilities for another couple of values of petal length and width. We also want to check the related probability, or in other words, how secure is the answer of the model:
+\paragraph{TODO 2}
+Calculate the probabilities for another couple of values of petal length and width. We also want to check the related probability, or in other words, how secure is the answer of the model:
 
 \begin{lstlisting}[style=pythonstyle]
 y_proba_1 = softmax_reg.predict_proba([[4.0, 1]])
@@ -379,18 +399,135 @@ y_proba_1
 \end{lstlisting}
 output: \texttt{array([[0.02404399, 0.96249222, 0.01346379]])}, meaning the model is 96.249222\% sure the answer is the flower is Versicolor. Other probabilities are reffered to `setosa' and `virginica'.
 
-\paragraph{\textcolor{red}{TODO 3}} \# TODO: Now train a Random Forest multiclass classifier on the iris set, using all features available (sepal length and width, 
-\# petal length and width). 
-\# Use the RandomForestClassifier from scikit learn library. Set as n\_estimators=500 and all other hyperparameters with 
-\# default values.
-\# After training, calculate the confusion matrix and scores for this classifier. Compare the results with the
-\# softmax classifier. Try another value of n\_estimators.
+\paragraph{TODO 3}
+Now train a Random Forest multiclass classifier on the iris set, using all features available (sepal length and width, petal length and width). 
+Use the RandomForestClassifier from scikit learn library. Set as n\_estimators=500 and all other hyperparameters with default values.
+After training, calculate the confusion matrix and scores for this classifier. Compare the results with the softmax classifier. Try another value of n\_estimators.
 
-\paragraph{TODO 4} \# TODO: One great advantage of Random Forests is that they can tell you the relative importance of the features. 
-\# Try to get it from the classifier you just trained. It is an attribute of the classifier called "feature\_importances\_".
-\# If your classifier name is "randfor\_clf", then the feature importance values are in "randfor\_clf.feature\_importances\_".
-\# Which is the most important feature for this classifier?
-To analize what is going on in the model, we can access an attribute of the random forest called \texttt{feature\_importances\_} to see the values of how important each feature is for the model.
+
+\begin{lstlisting}
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.linear_model import LogisticRegression
+
+# Training of a Random Forest Multi Class Classifier using 2 different `n_estimators'
+# The magic number 10 used in `rf_reg2' has been obtained by searching the minimum value necessary to obtain the same result as the n_estimator = 500 case
+# ---
+
+rf_reg1 = RandomForestClassifier(n_estimators= 500, random_state=42)
+rf_reg2 = RandomForestClassifier(n_estimators= 10, random_state=42) 
+
+
+# Training of a Soft Max Classifier
+# ---
+softmax_reg = LogisticRegression(random_state=42, max_iter=1000)
+
+X = iris["data"]  # all the features
+y = iris["target"]  
+
+# Fitting all models with all the dataset
+rf_reg1.fit(X, y)
+rf_reg2.fit(X, y)
+softmax_reg.fit(X, y)
+
+# Predictions
+y_pred_rf1 = rf_reg1.predict(X)
+y_pred_rf2 = rf_reg2.predict(X)
+y_pred_sftmax = softmax_reg.predict(X)
+
+# Results: Confusion matrix and scores
+conf_matrix_rf1 = confusion_matrix(y, y_pred_rf1)
+prec_score_rf1 = precision_score(y, y_pred_rf1, average=None)
+recall_score_rf1 = recall_score(y, y_pred_rf1, average=None)
+
+conf_matrix_rf2 = confusion_matrix(y, y_pred_rf2)
+prec_score_rf2 = precision_score(y, y_pred_rf2, average=None)
+recall_score_rf2 = recall_score(y, y_pred_rf2, average=None)
+
+conf_matrix_sftmax = confusion_matrix(y, y_pred_sftmax)
+prec_score_sftmax = precision_score(y, y_pred_sftmax, average=None)
+recall_score_sftmax = recall_score(y, y_pred_sftmax, average=None)
+
+# Printing
+print(f"{conf_matrix_rf1 = }")
+print(f"{prec_score_rf1 = }")
+print(f"{recall_score_rf1 = }")
+print(f"{conf_matrix_rf2 = }")
+print(f"{prec_score_rf2 = }")
+print(f"{recall_score_rf2 = }")
+print(f"{conf_matrix_sftmax = }")
+print(f"{prec_score_sftmax = }")
+print(f"{recall_score_sftmax = }")
+\end{lstlisting}
+
+\noindent output:
+\begin{itemize}
+\item
+\begin{verbatim}
+conf_matrix_rf1 = array([
+    [50,  0,  0],
+    [ 0, 50,  0],
+    [ 0,  0, 50]
+])
+\end{verbatim}
+
+\item
+\begin{verbatim}
+prec_score_rf1 = array([1., 1., 1.])
+\end{verbatim}
+
+\item
+\begin{verbatim}
+recall_score_rf1 = array([1., 1., 1.])
+\end{verbatim}
+
+\item
+\begin{verbatim}
+conf_matrix_rf2 = array([
+    [50,  0,  0],
+    [ 0, 50,  0],
+    [ 0,  0, 50]
+])
+\end{verbatim}
+
+\item
+\begin{verbatim}
+prec_score_rf2 = array([1., 1., 1.])
+\end{verbatim}
+
+\item
+\begin{verbatim}
+recall_score_rf2 = array([1., 1., 1.])
+\end{verbatim}
+
+\item
+\begin{verbatim}
+conf_matrix_sftmax = array([
+    [50,  0,  0],
+    [ 0, 47,  3],
+    [ 0,  1, 49]
+])
+\end{verbatim}
+
+\item
+\begin{verbatim}
+prec_score_sftmax = array([1., 0.97916667, 0.94230769])
+\end{verbatim}
+
+\item
+\begin{verbatim}
+recall_score_sftmax = array([1., 0.94, 0.98])
+\end{verbatim}
+\end{itemize}
+
+
+
+\paragraph{TODO 4}
+One great advantage of Random Forests is that they can tell you the relative importance of the features. 
+Try to get it from the classifier you just trained. It is an attribute of the classifier called "feature\_importances\_".
+If your classifier name is "randfor\_clf", then the feature importance values are in "randfor\_clf.feature\_importances\_".
+Which is the most important feature for this classifier?
+
+\noindent To analize what is going on in the model, we can access an attribute of the random forest called \texttt{feature\_importances\_} to see the values of how important each feature is for the model.
 
 \begin{lstlisting}[style=pythonstyle]
 rf_reg1.feature_importances_
@@ -406,9 +543,149 @@ Here are the results in percentage (importance). First value is rf\_reg1 and Sec
     \item 42.3358 and 41.016935\% $\to$ petal width in cm
 \end{itemize}
 
-\paragraph{\textcolor{red}{TODO 5}}
+\paragraph{TODO 5}
 
 \# TODO: Reload the iris dataset and retrain a softmax and a random forest multiclass classifier, 
 \# but this time first of all split the dataset into a training set and test set as in example 1. 
 \# Then do the training of the training set only and calculate the scores and confusion matrix 
 \# on both the training and test sets. Compare the results.
+
+
+\begin{lstlisting}
+from sklearn.model_selection import train_test_split
+
+# For simmetry, the following exercise has been done using again the same `n_estimators' as the previous exercise.
+# Training of a Random Forest Multi Class Classifier using 2 different `n_estimators'
+# The magic number 10 used in `rf_reg2' has been obtained by searching the minimum value necessary to obtain the same result as the n_estimator = 500 case
+# ---
+rf_reg1 = RandomForestClassifier(n_estimators= 500, random_state=42)
+rf_reg2 = RandomForestClassifier(n_estimators= 10, random_state=42)
+
+X = iris["data"]  # use all the features
+y = iris["target"]  
+
+# we divide in test and train sets
+# `stratify=y` preserves the class proportions in both splits,
+# (here 1 `searched' sample every 3 samples on average)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42, stratify = y)
+
+# Fitting all models with training dataset
+rf_reg1.fit(X_train, y_train)
+rf_reg2.fit(X_train, y_train)
+
+# Predictions
+y_pred_rf1_train = rf_reg1.predict(X_train)
+y_pred_rf1_test = rf_reg1.predict(X_test)
+y_pred_rf2_train = rf_reg2.predict(X_train)
+y_pred_rf2_test = rf_reg2.predict(X_test)
+
+# Results: Confusion matrix and scores
+train_conf_matrix_rf1 = confusion_matrix(y_train, y_pred_rf1_train)
+train_prec_score_rf1 = precision_score(y_train, y_pred_rf1_train, average=None)
+train_recall_score_rf1 = recall_score(y_train, y_pred_rf1_train, average=None)
+
+train_conf_matrix_rf2 = confusion_matrix(y_train, y_pred_rf2_train)
+train_prec_score_rf2 = precision_score(y_train, y_pred_rf2_train, average=None)
+train_recall_score_rf2 = recall_score(y_train, y_pred_rf2_train, average=None)
+
+test_conf_matrix_rf1 = confusion_matrix(y_test, y_pred_rf1_test)
+test_prec_score_rf1 = precision_score(y_test, y_pred_rf1_test, average=None)
+test_recall_score_rf1 = recall_score(y_test, y_pred_rf1_test, average=None)
+
+test_conf_matrix_rf2 = confusion_matrix(y_test, y_pred_rf2_test)
+test_prec_score_rf2 = precision_score(y_test, y_pred_rf2_test, average=None)
+test_recall_score_rf2 = recall_score(y_test, y_pred_rf2_test, average=None)
+
+# Printing
+print(f"{train_conf_matrix_rf1 = }")
+print(f"{train_prec_score_rf1 = }")
+print(f"{train_recall_score_rf1 = }")
+print(f"{train_conf_matrix_rf2 = }")
+print(f"{train_prec_score_rf2 = }")
+print(f"{train_recall_score_rf2 = }")
+print(f"{test_conf_matrix_rf1 = }")
+print(f"{test_prec_score_rf1 = }")
+print(f"{test_recall_score_rf1 = }")
+print(f"{test_conf_matrix_rf2 = }")
+print(f"{test_prec_score_rf2 = }")
+print(f"{test_recall_score_rf2 = }")
+\end{lstlisting}
+
+\noindent output:
+\begin{itemize}
+\item
+\begin{verbatim}
+train_conf_matrix_rf1 = array([
+    [40,  0,  0],
+    [ 0, 40,  0],
+    [ 0,  0, 40]
+])
+\end{verbatim}
+
+\item
+\begin{verbatim}
+train_prec_score_rf1 = array([1., 1., 1.])
+\end{verbatim}
+
+\item
+\begin{verbatim}
+train_recall_score_rf1 = array([1., 1., 1.])
+\end{verbatim}
+
+\item
+\begin{verbatim}
+train_conf_matrix_rf2 = array([
+    [40,  0,  0],
+    [ 0, 40,  0],
+    [ 0,  0, 40]
+])
+\end{verbatim}
+
+\item
+\begin{verbatim}
+train_prec_score_rf2 = array([1., 1., 1.])
+\end{verbatim}
+
+\item
+\begin{verbatim}
+train_recall_score_rf2 = array([1., 1., 1.])
+\end{verbatim}
+
+\item
+\begin{verbatim}
+test_conf_matrix_rf1 = array([
+    [10,  0,  0],
+    [ 0,  9,  1],
+    [ 0,  1,  9]
+])
+\end{verbatim}
+
+\item
+\begin{verbatim}
+test_prec_score_rf1 = array([1. , 0.9, 0.9])
+\end{verbatim}
+
+\item
+\begin{verbatim}
+test_recall_score_rf1 = array([1. , 0.9, 0.9])
+\end{verbatim}
+
+\item
+\begin{verbatim}
+test_conf_matrix_rf2 = array([
+    [10,  0,  0],
+    [ 0,  9,  1],
+    [ 0,  0, 10]
+])
+\end{verbatim}
+
+\item
+\begin{verbatim}
+test_prec_score_rf2 = array([1.    , 1.    , 0.90909091])
+\end{verbatim}
+
+\item
+\begin{verbatim}
+test_recall_score_rf2 = array([1. , 0.9, 1. ])
+\end{verbatim}
+\end{itemize}

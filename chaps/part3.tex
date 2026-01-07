@@ -1,18 +1,16 @@
 \section{Exercise with Granta}
 
-\textcolor{red}{TRADUCI TUTTO IN INGLESE}
-
-\paragraph{Overview:} L'oggetto a noi assegnato è l'elmetto da bici (più precisamente il guscio esterno). Ecco riportato in ordine il processo di selezione dei due miglior materiali candidati:
+\paragraph{Overview:} The object assigned to us is the bicycle helmet (more precisely, the outer shell). Here is the selection process for the two best candidate materials, in order:
 
 \begin{itemize}
-    \item Selezione dei material indices dalla seguente \href{https://www.ansys.com/content/dam/amp/2021/august/webpage-requests/education-resources-dam-upload-batch-6/performance-indices-booklet-bokpeien22.pdf}{\textit{tabella}}.
-    \item Applicazione dei limiti
-    \item Applicazione di un material index (costo)
-    \item Selezione del materiale più cheap
-    \item Rimozione del material index relativo al costo e selezione del material più expensive
+    \item Selection of material indices from the following \href{https://www.ansys.com/content/dam/amp/2021/august/webpage-requests/education-resources-dam-upload-batch-6/performance-indices-booklet-bokpeien22.pdf}{\textit{table}}.
+    \item Application of limits
+    \item Application of a material index (cost)
+    \item Selection of the cheapest material
+    \item Removal of the material index relating to cost and selection of the most expensive material
 \end{itemize}
 
-\paragraph{Material indeces:} Prima di tutto scegliamo la geometria che meglio approssima l'oggetto finale che dobbiamo costruire. Successivamente ci siamo basati su Stiffness-limited-Design at minimum mass.
+\paragraph{Material indeces:} First of all, we choose the geometry that best approximates the final object we need to build. Next, we based our design on Stiffness-limited-Design at minimum mass.
 
 \begin{figure}[H]
     \centering
@@ -21,7 +19,7 @@
     \label{fig:dome_1}
 \end{figure}
 
-\noindent Successivamente massimizziamo e Strength-limited-Design at minimum mass:
+\noindent Next, we maximize and Strength-limited-Design at minimum mass:
 
 \begin{figure}[H]
     \centering
@@ -30,7 +28,7 @@
     \label{fig:dome_2}
 \end{figure}
 
-\noindent I seguenti Ashby chart:
+\noindent Ashby charts:
 
 \begin{figure}[H]
     \centering
@@ -46,7 +44,7 @@
     \label{fig:ashby_chart_2}
 \end{figure}
 
-Applicando la formula dei material indices, per ogni grafico abbiamo posizionato una retta di pendenza 1 in modo da restringere il numero di candidates materials e massimizzare le proprietà.
+Applying the material indices formula, we positioned a straight line with a slope of 1 on each graph in order to narrow down the number of candidate materials and maximize properties.
 
 \begin{figure}[H]
     \centering
@@ -62,9 +60,9 @@ Applicando la formula dei material indices, per ogni grafico abbiamo posizionato
     \label{fig:min_ashby_chart_2}
 \end{figure}
 
-\noindent Come si può vedere dai grafici le rette sono state posizionate in modo da mediare sulla selezione delle proprietà.
+\noindent As can be seen from the graphs, the lines have been positioned so as to mediate on the selection of properties.
 
-\paragraph{Costi:} Abbiamo impostato un limite sulla geometria del nostro materiale in modo da avere una geometria il più simile ad un casco da bici, come riportato in Fig. \ref{fig:forma}. Questo limite permette al programma di selezionare tutti i materiale che possono ottenere la forma da noi desiderata tramite vari processi industriali.
+\paragraph{Costs:} We have set a limit on the geometry of our material so that it is as similar as possible to a bicycle helmet, as shown in Fig. \ref{fig:forma}. This limit allows the program to select all materials that can achieve the desired shape through various industrial processes.
 
 \begin{figure}[H]
     \centering
@@ -73,34 +71,32 @@ Applicando la formula dei material indices, per ogni grafico abbiamo posizionato
     \label{fig:forma}
 \end{figure}
 
-\paragraph{Limits:} Abbiamo impostato il material index basato sul costo (vedi Fig. \ref{fig:dome_3}):
+\paragraph{Limits:} We set up the material index based on cost (see Fig. \ref{fig:dome_3}):
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=\linewidth]{images/dome_data3.png}
-    \caption{fra non ha voglia....}
+    \caption{Mechanical - Strength table}
     \label{fig:dome_3}
 \end{figure}
-
-\noindent Il seguenti Ashby chart:
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=\linewidth]{images/costo.JPG}
-    \caption{fra non ha voglia....}
+    \caption{Price vs Flexural modulus Ashby chart}
     \label{fig:costo}
 \end{figure}
 
-Questa volta abbiamo posizionato la retta in modo da selezionare un solo materiale candidato, che corrisponde all'opzione più economica del casco, come riportato in Fig. \ref{fig:cip_ciop}
+This time, we positioned the line so as to select only one candidate material, which corresponds to the most economical helmet option, as shown in Fig. \ref{fig:cip_ciop}.
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=\linewidth]{images/cheap chop.JPG}
-    \caption{Cheap chop}
+    \caption{Candidate as economic material}
     \label{fig:cip_ciop}
 \end{figure}
 
-\noindent Il materiale trovato è \texttt{Fir (abies lasiocarpa) (longitudinal)}
+\noindent The material we found is \texttt{Fir (abies lasiocarpa) (longitudinal)}
 
 \begin{figure}[H]
     \centering
@@ -109,7 +105,7 @@ Questa volta abbiamo posizionato la retta in modo da selezionare un solo materia
     \label{fig:fir_footprint}
 \end{figure}
 
-\paragraph{Selezione del materiale più expensive:} Abbiamo rimosso il material index relativo al costo in modo da poter selezionare un materiale che massimizzi lo Stiffness index. Inoltre abbiamo applicato dei limiti per migliorare la durability: resistenza all'acqua, alla luce solare e infiammabilità.
+\paragraph{Selection of the most expensive material:} We removed the material index related to cost so that we could select a material that maximizes the stiffness index. We also applied limits to improve durability: resistance to water, sunlight, and flammability.
 
 \begin{figure}[H]
     \centering
@@ -143,31 +139,31 @@ Questa volta abbiamo posizionato la retta in modo da selezionare un solo materia
     \label{fig:ecoaudit_fir}
 \end{figure}
 
-\paragraph{Environmental impact analysis} Abbiamo performato un eco audit per valutare impatto ecologico generato dai materiali selezionati, comparando il materiale meno costoso (Fir) con quello più costoso (Cyanate ester/HM carbon fiber). 
+\paragraph{Environmental impact analysis} We performed an eco-audit to assess the ecological impact generated by the selected materials, comparing the least expensive material (Fir) with the most expensive (Cyanate ester/HM carbon fiber).
 
-Per far ciò abbiamo dovuto compilare le varie categorie inserendo i valori del “Fir (abies lasiocarpa) (l) e del Cyanate ester/HM carbon fiber nell'Eco Audit Projet, tenendo in considerazione i parametri di riciclaggio e fine vita presenti nel database dei due materiali (figure sotto).
+To do this, we had to compile the various categories by entering the values for Fir (Abies lasiocarpa) (l) and Cyanate ester/HM carbon fiber in the Eco Audit Project, taking into account the recycling and end-of-life parameters present in the database for the two materials (figures below).
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=\linewidth]{images/material_data_fir_crop.JPG}
-    \caption{Parametri fir}
+    \caption{Fir parameters}
     \label{fig:params_fir}
 \end{figure}
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=\linewidth]{images/material_data_Cy_crop.JPG}
-    \caption{Parametri Cy}
+    \caption{Cy parameters}
     \label{fig:params_cy}
 \end{figure}
 
-Nella sezione “Material, manufacture and end of life” abbiamo considerando una quantità di 1000 elmetti, senza contenuto di riciclaggio ed una massa di 0,15 kg (ChatGPT). Per la End of life del materiale è stato scelto Downcycle per entrambi in quanto i due materiali non possono essere riciclati.
+In the section “Material, manufacture, and end of life,” we considered a quantity of 1,000 helmets, with no recycled content and a mass of 0.15 kg (ChatGPT). For the end of life of the material, Downcycle was chosen for both, as the two materials cannot be recycled.
 
-È stata inoltre selezionata la modalità di trasporto e la distanza da percorrere per la distribuzione del prodotto (Vedi fig. \ref{fig:ecoaudit_fir} \& \ref{fig:ecoaudit_carbon})
+The mode of transport and distance to be traveled for product distribution were also selected (see fig. \ref{fig:ecoaudit_fir} \& \ref{fig:ecoaudit_carbon}).
 
-Tenendo in considerazione la durability dei materiali, abbiamo scelto di considerare una product life diversa per i due prodotti (5 anni per quello più economico e 10 per quello più costoso). Vedi fig. \ref{fig:ecoaudit_fir} nella sezione \texttt{Use}.
+Taking into account the durability of the materials, we chose to consider a different product life for the two products (5 years for the cheaper one and 10 for the more expensive one). See fig. \ref{fig:ecoaudit_fir} in the \texttt{Use} section.
 
-Otteniamo i seguenti summary chart:
+We thus obtain the following summary chart:
 
 \begin{figure}[H]
     \centering
@@ -179,8 +175,8 @@ Otteniamo i seguenti summary chart:
 \begin{figure}[H]
     \centering
     \includegraphics[width=\linewidth]{images/co2_char.png}
-    \caption{CO2 chart}
+    \caption{$CO_2$ chart}
     \label{fig:co2_char}
 \end{figure}
 
-Dai due grafici possiamo dedurre che per nessuno dei due prodotti è possibile compensare la CO2 generata nei processi produttivi. Questo Il Cyanate dal punto di vista della sostenibilità è peggiore rispetto al Fir, sia in termini di energia necessaria alla sua produzione che emissioni di CO2. Il Fir pur non avendo durability e proprietà meccaniche migliori, ha vantaggi maggiori in termini di sostenibilità in quanto è biodegradabile e non produce quantità rilevanti di CO2 nella produzione. 
+From the two graphs, we can deduce that for neither product is it possible to offset the $CO_2$ generated in the production processes. From a sustainability perspective, cyanate is worse than FIR, both in terms of the energy required for its production and $CO_2$ emissions. Although FIR does not have better durability and mechanical properties, it has greater advantages in terms of sustainability as it is biodegradable and does not produce significant amounts of $CO_2$ during production.
