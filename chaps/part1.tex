@@ -12,7 +12,7 @@ Overall we are testing which model has the LOWEST MSE in test environment.
 
 \begin{table}[!ht]
 \centering
-\resizebox{\textwidth}{!}{%
+% \resizebox{\textwidth}{!}{%
 \begin{tabular}{c|c|c|c|c|c|c|c}
 \hline
 $N$ & $\text{MSE}_\text{train, linear}$ & $\text{MSE}_\text{train, quad}$ & $\text{MSE}_\text{test, linear}$ & $\text{MSE}_\text{test, quad}$ & \text{Best Model} \\
@@ -26,7 +26,7 @@ $N$ & $\text{MSE}_\text{train, linear}$ & $\text{MSE}_\text{train, quad}$ & $\te
 5000  & \cellcolor{myred} 2.74 & \cellcolor{mygreen} 0.97 & \cellcolor{myred} 2.73 & \cellcolor{mygreen} 0.97 & \text{Quadratic} \\
 \hline
 \end{tabular}%
-}
+% }
 \caption{Comparison of Linear and Quadratic Models for Different Sample Sizes $N$.}
 \end{table}
 
@@ -37,7 +37,7 @@ Since we generalized the code to support many different sample sizes, we tested 
 
 \begin{table}[!ht]
 \centering
-\resizebox{\textwidth}{!}{%
+% \resizebox{\textwidth}{!}{%
 \begin{tabular}{c|c|c|c|c}
 \hline
 $N$ & $\text{MSE}_\text{train, N}$ & $\text{MSE}_\text{test, N}$ & $\text{MSE}_\text{train, Y}$ & $\text{MSE}_\text{test, Y}$ \\
@@ -51,7 +51,7 @@ $N$ & $\text{MSE}_\text{train, N}$ & $\text{MSE}_\text{test, N}$ & $\text{MSE}_\
 5000  & \cellcolor{mygreen} 0.00 & \cellcolor{myred} 1.89 & \cellcolor{myred} 0.79 & \cellcolor{mygreen} 1.13 \\
 \hline
 \end{tabular}%
-}
+% }
 \caption{Comparison of Tree Models (Y = with regularization, N = without regularization) for Different Sample Sizes $N$.}
 \end{table}
 

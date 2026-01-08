@@ -23,7 +23,7 @@ plot(Th, wait=debug);
 
 // The finite element space defined over Th is called here Vh 
 fespace Vh(Th, P2);
-Vh u, v;// Define u and v as piecewise-P1 continuous functions
+Vh u, v;// Define u and v as piecewise-P2 continuous functions
 
 // Define a function f for the stiffness
 
@@ -38,20 +38,13 @@ macro grad(u) [dx(u), dy(u)] //
 
 // Define the PDE
 solve Poisson(u, v, solver=CG)
-= int2d(Th)(grad(u)'*grad(v)*k)  // The bilinear part
-- int2d(Th)(k*v)                         // The linear part 
-+ on(C, u=0);                            // The Dirichlet boundary condition
+= int2d(Th)(grad(u)'*grad(v)*k)     // The bilinear part
+- int2d(Th)(k*v)                    // The linear part 
++ on(C, u=0);                       // The Dirichlet boundary condition
 
 // Plot the result
 medit("u", Th, u, wait=debug);
 \end{lstlisting}
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.5\linewidth]{images/fra_ex_1_1.png}
-    \caption{Case 1: Smooth function of position}
-    \label{fig:fra_ex_1_1}
-\end{figure}
 
 \newpage
 \paragraph{Case 2}:
@@ -79,7 +72,7 @@ plot(Th, wait=debug);
 // The finite element space defined over Th is called here Vh 
 fespace Vh(Th, P2);
 Vh u, v;// Define u and v as piecewise-P2 continuous functions
-
+    
 // Define a function f for the stiffness
 
 real ksoft = 0.5;
@@ -106,29 +99,39 @@ medit("u", Th, u, wait=debug);
 
 \begin{figure}[H]
     \centering
+    \includegraphics[width=0.5\linewidth]{images/fra_ex_1_1.png}
+    \caption{Case 1: Smooth function of position}
+    \label{fig:fra_ex_1_1}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
     \begin{minipage}{0.32\linewidth}
         \centering
         \includegraphics[width=\linewidth]{images/fra_ex_1_2_K1.png}
-        \caption*{K\_stiff = 1}
+        \caption*{$k_{\mathrm{stiff}}$ = 1}
     \end{minipage}
     \hfill
     \begin{minipage}{0.32\linewidth}
         \centering
         \includegraphics[width=\linewidth]{images/fra_ex_1_2_K10.png}
-        \caption*{K\_stiff = 10}
+        \caption*{$k_{\mathrm{stiff}}$ = 10}
     \end{minipage}
     \hfill
     \begin{minipage}{0.32\linewidth}
         \centering
         \includegraphics[width=\linewidth]{images/fra_ex_1_2_K1000.png}
-        \caption*{K\_stiff = 100}
+        \caption*{$k_{\mathrm{stiff}}$ = 100}
     \end{minipage}
     \caption{Case 2: Piecewise constant stiffness (material zones)}
     \label{fig:fra_ex_1_2}
 \end{figure}
 
-\paragraph{\textcolor{red}{Comments case 1}}
-\paragraph{\textcolor{red}{Comments case 2}} If K increases, the gradient in the plot is more marked.
+\paragraph{Comments:}
+
+Using a single $k_0$, the membrane deformation is gradual, with larger displacements occurring toward the center, as expected.  
+When employing two coefficients, $k_{\mathrm{soft}}$ and $k_{\mathrm{stiff}}$, the deformation gradient becomes significantly more pronounced, particularly as $k_{\mathrm{stiff}}$ increases.
+
 
 \newpage
 \subsection{3D HYDROGEN DIFFUSION IN A BOLT}
@@ -146,11 +149,11 @@ mesh3 Th("vite_ale_refined.mesh");
 // We assume all units of measure are in `cm'
 
 // 2. PHYSICAL PARAMETERS
-real cs = 10e-5;        // Surface concentration (exercise constraint)
-real l = 0.1;           // Smoothness parameter for the transition (exercise constraint)
-real dhead = 1.6e-6;    // Diffusion coefficient in the bolt head in cm^2/s (Assumed values)
-real dshank = 0.8e-6;   // Diffusion coefficient in the shank in cm^2/s (Assumed values)
-real z0 = 0.5;          // Vertical position (z) of the head-shank interface
+real cs = 10e-5;      // Surface concentration (exercise constraint)
+real l = 0.1;         // Smoothness parameter for the transition (exercise constraint)
+real dhead = 1.6e-6;  // Diffusion coefficient in the bolt head in cm^2/s (Assumed values)
+real dshank = 0.8e-6; // Diffusion coefficient in the shank in cm^2/s (Assumed values)
+real z0 = 0.5;        // Vertical position (z) of the head-shank interface
 
 // Define the Diffusion Coefficient as a function of space D(z).
 // We use a hyperbolic tangent `s' to create a smooth transition 
@@ -265,68 +268,70 @@ for i in range(0, len(vtk_files)):
 \newpage
 \subsection{Image dump}
 
-Here are 4 columns of images representing the time evolution at different height sections
+We selected a temporal range of 10 hours. Each image along a row corresponds to a cross-section of the screw within the head and shank.  
+
+The time-sequence images show an increasing hydrogen concentration in the head sections of the screw, particularly along the outer surface where the gas flux enters. The final circular section corresponds to the shank: the concentration there remains zero, as the model assumes the shank is protected, while the head is exposed.
 
 \begin{center}
 \begin{minipage}{0.3\textwidth}
   \centering
   \textbf{0.08 cm}\\
-  \textbf{0h} \includegraphics[height=40pt, trim=175 0 30 90, clip]{VITEEEEEE/0_008.jpg}\\
-  \textbf{1h} \includegraphics[height=40pt, trim=175 0 30 90, clip]{VITEEEEEE/1_008.jpg}\\
-  \textbf{2h} \includegraphics[height=40pt, trim=175 0 30 90, clip]{VITEEEEEE/2_008.jpg}\\
-  \textbf{3h} \includegraphics[height=40pt, trim=175 0 30 90, clip]{VITEEEEEE/3_008.jpg}\\
-  \textbf{4h} \includegraphics[height=40pt, trim=175 0 30 90, clip]{VITEEEEEE/4_008.jpg}\\
-  \textbf{5h} \includegraphics[height=40pt, trim=175 0 30 90, clip]{VITEEEEEE/5_008.jpg}\\
-  \textbf{6h} \includegraphics[height=40pt, trim=175 0 30 90, clip]{VITEEEEEE/6_008.jpg}\\
-  \textbf{7h} \includegraphics[height=40pt, trim=175 0 30 90, clip]{VITEEEEEE/7_008.jpg}\\
-  \textbf{8h} \includegraphics[height=40pt, trim=175 0 30 90, clip]{VITEEEEEE/8_008.jpg}\\
-  \textbf{9h} \includegraphics[height=40pt, trim=175 0 30 90, clip]{VITEEEEEE/9_008.jpg}\\
-  \textbf{10h} \includegraphics[height=40pt, trim=175 0 30 90, clip]{VITEEEEEE/10_008.jpg}
+  \textbf{0h} \includegraphics[height=53pt, trim=175 0 30 90, clip]{VITEEEEEE/0_008.jpg}\\
+  \textbf{1h} \includegraphics[height=53pt, trim=175 0 30 90, clip]{VITEEEEEE/1_008.jpg}\\
+  \textbf{2h} \includegraphics[height=53pt, trim=175 0 30 90, clip]{VITEEEEEE/2_008.jpg}\\
+  \textbf{3h} \includegraphics[height=53pt, trim=175 0 30 90, clip]{VITEEEEEE/3_008.jpg}\\
+  \textbf{4h} \includegraphics[height=53pt, trim=175 0 30 90, clip]{VITEEEEEE/4_008.jpg}\\
+  \textbf{5h} \includegraphics[height=53pt, trim=175 0 30 90, clip]{VITEEEEEE/5_008.jpg}\\
+  \textbf{6h} \includegraphics[height=53pt, trim=175 0 30 90, clip]{VITEEEEEE/6_008.jpg}\\
+  \textbf{7h} \includegraphics[height=53pt, trim=175 0 30 90, clip]{VITEEEEEE/7_008.jpg}\\
+  \textbf{8h} \includegraphics[height=53pt, trim=175 0 30 90, clip]{VITEEEEEE/8_008.jpg}\\
+  \textbf{9h} \includegraphics[height=53pt, trim=175 0 30 90, clip]{VITEEEEEE/9_008.jpg}\\
+  \textbf{10h} \includegraphics[height=53pt, trim=175 0 30 90, clip]{VITEEEEEE/10_008.jpg}
 \end{minipage}\hfill
 \begin{minipage}{0.2\textwidth}
   \centering
   \textbf{0.12 cm}\\
-  \includegraphics[height=40pt, trim=175 0 30 90, clip]{VITEEEEEE/0_012.jpg}\\
-  \includegraphics[height=40pt, trim=175 0 30 90, clip]{VITEEEEEE/1_012.jpg}\\
-  \includegraphics[height=40pt, trim=175 0 30 90, clip]{VITEEEEEE/2_012.jpg}\\
-  \includegraphics[height=40pt, trim=175 0 30 90, clip]{VITEEEEEE/3_012.jpg}\\
-  \includegraphics[height=40pt, trim=175 0 30 90, clip]{VITEEEEEE/4_012.jpg}\\
-  \includegraphics[height=40pt, trim=175 0 30 90, clip]{VITEEEEEE/5_012.jpg}\\
-  \includegraphics[height=40pt, trim=175 0 30 90, clip]{VITEEEEEE/6_012.jpg}\\
-  \includegraphics[height=40pt, trim=175 0 30 90, clip]{VITEEEEEE/7_012.jpg}\\
-  \includegraphics[height=40pt, trim=175 0 30 90, clip]{VITEEEEEE/8_012.jpg}\\
-  \includegraphics[height=40pt, trim=175 0 30 90, clip]{VITEEEEEE/9_012.jpg}\\
-  \includegraphics[height=40pt, trim=175 0 30 90, clip]{VITEEEEEE/10_012.jpg}
+  \includegraphics[height=53pt, trim=175 0 30 90, clip]{VITEEEEEE/0_012.jpg}\\
+  \includegraphics[height=53pt, trim=175 0 30 90, clip]{VITEEEEEE/1_012.jpg}\\
+  \includegraphics[height=53pt, trim=175 0 30 90, clip]{VITEEEEEE/2_012.jpg}\\
+  \includegraphics[height=53pt, trim=175 0 30 90, clip]{VITEEEEEE/3_012.jpg}\\
+  \includegraphics[height=53pt, trim=175 0 30 90, clip]{VITEEEEEE/4_012.jpg}\\
+  \includegraphics[height=53pt, trim=175 0 30 90, clip]{VITEEEEEE/5_012.jpg}\\
+  \includegraphics[height=53pt, trim=175 0 30 90, clip]{VITEEEEEE/6_012.jpg}\\
+  \includegraphics[height=53pt, trim=175 0 30 90, clip]{VITEEEEEE/7_012.jpg}\\
+  \includegraphics[height=53pt, trim=175 0 30 90, clip]{VITEEEEEE/8_012.jpg}\\
+  \includegraphics[height=53pt, trim=175 0 30 90, clip]{VITEEEEEE/9_012.jpg}\\
+  \includegraphics[height=53pt, trim=175 0 30 90, clip]{VITEEEEEE/10_012.jpg}
 \end{minipage}\hfill
 \begin{minipage}{0.2\textwidth}
   \centering
   \textbf{0.25 cm}\\
-  \includegraphics[height=40pt, trim=175 0 30 90, clip]{VITEEEEEE/bolt_hydrogen_0.vtk_0.25.png}\\
-  \includegraphics[height=40pt, trim=175 0 30 90, clip]{VITEEEEEE/bolt_hydrogen_1.vtk_0.25.png}\\
-  \includegraphics[height=40pt, trim=175 0 30 90, clip]{VITEEEEEE/bolt_hydrogen_2.vtk_0.25.png}\\
-  \includegraphics[height=40pt, trim=175 0 30 90, clip]{VITEEEEEE/bolt_hydrogen_3.vtk_0.25.png}\\
-  \includegraphics[height=40pt, trim=175 0 30 90, clip]{VITEEEEEE/bolt_hydrogen_4.vtk_0.25.png}\\
-  \includegraphics[height=40pt, trim=175 0 30 90, clip]{VITEEEEEE/bolt_hydrogen_5.vtk_0.25.png}\\
-  \includegraphics[height=40pt, trim=175 0 30 90, clip]{VITEEEEEE/bolt_hydrogen_6.vtk_0.25.png}\\
-  \includegraphics[height=40pt, trim=175 0 30 90, clip]{VITEEEEEE/bolt_hydrogen_7.vtk_0.25.png}\\
-  \includegraphics[height=40pt, trim=175 0 30 90, clip]{VITEEEEEE/bolt_hydrogen_8.vtk_0.25.png}\\
-  \includegraphics[height=40pt, trim=175 0 30 90, clip]{VITEEEEEE/bolt_hydrogen_9.vtk_0.25.png}\\
-  \includegraphics[height=40pt, trim=175 0 30 90, clip]{VITEEEEEE/bolt_hydrogen_10.vtk_0.25.png}
+  \includegraphics[height=53pt, trim=175 0 30 90, clip]{VITEEEEEE/bolt_hydrogen_0.vtk_0.25.png}\\
+  \includegraphics[height=53pt, trim=175 0 30 90, clip]{VITEEEEEE/bolt_hydrogen_1.vtk_0.25.png}\\
+  \includegraphics[height=53pt, trim=175 0 30 90, clip]{VITEEEEEE/bolt_hydrogen_2.vtk_0.25.png}\\
+  \includegraphics[height=53pt, trim=175 0 30 90, clip]{VITEEEEEE/bolt_hydrogen_3.vtk_0.25.png}\\
+  \includegraphics[height=53pt, trim=175 0 30 90, clip]{VITEEEEEE/bolt_hydrogen_4.vtk_0.25.png}\\
+  \includegraphics[height=53pt, trim=175 0 30 90, clip]{VITEEEEEE/bolt_hydrogen_5.vtk_0.25.png}\\
+  \includegraphics[height=53pt, trim=175 0 30 90, clip]{VITEEEEEE/bolt_hydrogen_6.vtk_0.25.png}\\
+  \includegraphics[height=53pt, trim=175 0 30 90, clip]{VITEEEEEE/bolt_hydrogen_7.vtk_0.25.png}\\
+  \includegraphics[height=53pt, trim=175 0 30 90, clip]{VITEEEEEE/bolt_hydrogen_8.vtk_0.25.png}\\
+  \includegraphics[height=53pt, trim=175 0 30 90, clip]{VITEEEEEE/bolt_hydrogen_9.vtk_0.25.png}\\
+  \includegraphics[height=53pt, trim=175 0 30 90, clip]{VITEEEEEE/bolt_hydrogen_10.vtk_0.25.png}
 \end{minipage}\hfill
 \begin{minipage}{0.2\textwidth}
   \centering
   \textbf{3 cm}\\
-  \includegraphics[height=40pt, trim=175 0 30 90, clip]{VITEEEEEE/0_3.jpg}\\
-  \includegraphics[height=40pt, trim=175 0 30 90, clip]{VITEEEEEE/1_3.jpg}\\
-  \includegraphics[height=40pt, trim=175 0 30 90, clip]{VITEEEEEE/2_3.jpg}\\
-  \includegraphics[height=40pt, trim=175 0 30 90, clip]{VITEEEEEE/3_3.jpg}\\
-  \includegraphics[height=40pt, trim=175 0 30 90, clip]{VITEEEEEE/4_3.jpg}\\
-  \includegraphics[height=40pt, trim=175 0 30 90, clip]{VITEEEEEE/5_3.jpg}\\
-  \includegraphics[height=40pt, trim=175 0 30 90, clip]{VITEEEEEE/6_3.jpg}\\
-  \includegraphics[height=40pt, trim=175 0 30 90, clip]{VITEEEEEE/7_3.jpg}\\
-  \includegraphics[height=40pt, trim=175 0 30 90, clip]{VITEEEEEE/8_3.jpg}\\
-  \includegraphics[height=40pt, trim=175 0 30 90, clip]{VITEEEEEE/9_3.jpg}\\
-  \includegraphics[height=40pt, trim=175 0 30 90, clip]{VITEEEEEE/10_3.jpg}
+  \includegraphics[height=53pt, trim=175 0 30 90, clip]{VITEEEEEE/0_3.jpg}\\
+  \includegraphics[height=53pt, trim=175 0 30 90, clip]{VITEEEEEE/1_3.jpg}\\
+  \includegraphics[height=53pt, trim=175 0 30 90, clip]{VITEEEEEE/2_3.jpg}\\
+  \includegraphics[height=53pt, trim=175 0 30 90, clip]{VITEEEEEE/3_3.jpg}\\
+  \includegraphics[height=53pt, trim=175 0 30 90, clip]{VITEEEEEE/4_3.jpg}\\
+  \includegraphics[height=53pt, trim=175 0 30 90, clip]{VITEEEEEE/5_3.jpg}\\
+  \includegraphics[height=53pt, trim=175 0 30 90, clip]{VITEEEEEE/6_3.jpg}\\
+  \includegraphics[height=53pt, trim=175 0 30 90, clip]{VITEEEEEE/7_3.jpg}\\
+  \includegraphics[height=53pt, trim=175 0 30 90, clip]{VITEEEEEE/8_3.jpg}\\
+  \includegraphics[height=53pt, trim=175 0 30 90, clip]{VITEEEEEE/9_3.jpg}\\
+  \includegraphics[height=53pt, trim=175 0 30 90, clip]{VITEEEEEE/10_3.jpg}
 \end{minipage}
 \end{center}
 

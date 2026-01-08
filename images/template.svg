@@ -27,9 +27,9 @@
      inkscape:pagecheckerboard="0"
      inkscape:deskcolor="#d1d1d1"
      inkscape:document-units="mm"
-     inkscape:zoom="0.31494555"
-     inkscape:cx="387.36855"
-     inkscape:cy="939.845"
+     inkscape:zoom="0.44540027"
+     inkscape:cx="893.57827"
+     inkscape:cy="1012.5724"
      inkscape:window-width="1648"
      inkscape:window-height="961"
      inkscape:window-x="0"
@@ -189,12 +189,12 @@
        height="34.711624"
        x="9.3259306"
        y="437.3765" /><rect
-       style="fill:#000000;fill-opacity:0.247059;stroke:#000000;stroke-width:0.660306;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       style="fill:#000000;fill-opacity:0.247059;stroke:#000000;stroke-width:0.689486;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
        id="rect16"
-       width="51.66267"
-       height="12.266276"
-       x="182.35997"
-       y="179.29601" /><text
+       width="56.46402"
+       height="12.237096"
+       x="182.37456"
+       y="179.31059" /><text
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:9.01955px;font-family:'Old Standard';-inkscape-font-specification:'Old Standard';text-align:start;writing-mode:lr-tb;direction:ltr;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.852239;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:0.498039"
        x="184.83492"
@@ -301,14 +301,4 @@
          id="tspan19"
          style="stroke-width:2.39551"
          x="281.92349"
-         y="24.660873">Ag = phase rich in Ag</tspan></text><text
-       xml:space="preserve"
-       style="font-size:7.34581px;text-align:start;writing-mode:lr-tb;direction:ltr;text-anchor:start;fill:#ff0000;stroke:none;stroke-width:0.694092;fill-opacity:1"
-       x="163.30859"
-       y="249.96243"
-       id="text25"><tspan
-         sodipodi:role="line"
-         id="tspan25"
-         style="stroke-width:0.694092;stroke:none;fill:#ff0000;fill-opacity:1"
-         x="163.30859"
-         y="249.96243">No intersection point found!</tspan></text></g></svg>
+         y="24.660873">Ag = phase rich in Ag</tspan></text></g></svg>
