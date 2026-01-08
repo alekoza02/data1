@@ -1,0 +1,91 @@
+// ===================================================================
+// 3D HYDROGEN DIFFUSION IN A BOLT
+// ===================================================================
+// This script simulates the diffusion of hydrogen in a 3D bolt using
+// the Backward Euler time-stepping scheme.
+// ===================================================================
+
+// Load the library required to export results for Paraview/PyVista
+load "iovtk"
+
+// 1. MESH LOADING
+// We load the 3D mesh
+mesh3 Th("vite_ale_refined.mesh"); 
+//mesh3 Th("vite_ale1.mesh"); 
+
+// Output the labels found in the mesh to the console.
+// Used to verify that Label 2 is the 'Exposed' part.
+cout << "Found Labels in vite_ale_refined.mesh: " << labels(Th) << endl;
+
+// vite alta 4.05 e larga 2, quindi decidiamo che l'unità di misura delle dimensioni è in cm
+
+// 2. PHYSICAL PARAMETERS
+real cs = 10e-5;        // Surface concentration (imposed by environment)
+real dhead = 1.6e-6;    // Diffusion coefficient in the bolt head in cm^2/s   
+real dshank = 0.8e-6;   // Diffusion coefficient in the shank in cm^2/s
+real z0 = 0.5;          // o 3.5, da controllare; Vertical position (z) of the head-shank interface
+real l = 0.1;           // Smoothness parameter for the transition
+
+// Define the Diffusion Coefficient as a function of space D(z).
+// We use a hyperbolic tangent 's' to create a smooth transition 
+// between dhead and dshank to avoid numerical instability.
+func s = 0.5 * (1 + tanh((z - z0) / l));
+func D = dhead + (dshank - dhead) * s;
+
+// 3. FINITE ELEMENT SPACE
+// We define a P1 space (piecewise linear functions) on the mesh.
+// c: current concentration, v: test function, cold: previous time step
+fespace Vh(Th, P1);   // You can try to use different mesh size and different order of basis functions (P1, P2)
+Vh c, v, cold;
+
+// 4. TIME PARAMETERS
+//real dt = 0.1;          // Time step size (seconds or hours depending on D)
+real dt = 3600;          // Time step size (seconds or hours depending on D)
+// real Tmax = 1.0;        // Final simulation time
+real Tmax = 36000;        // Final simulation time
+real tCurr = 0.0;       // Current time (renamed from 'time' to avoid warnings)
+int step = 0;
+// 5. INITIAL CONDITION
+// At t = 0, the bolt has zero hydrogen concentration.
+c = 0;                  
+
+// 6. WEAK FORMULATION (Backward Euler)
+// The equation discretized is: (c^n - c^{n-1})/dt - div(D * grad(c^n)) = 0
+// Weak form: ∫ (c/dt)*v - ∫ (cold/dt)*v + ∫ D*grad(c)·grad(v) = 0
+problem transport(c, v)
+    = int3d(Th)( (c / dt) * v )                // Mass Matrix part
+    - int3d(Th)( (cold / dt) * v )             // Previous step contribution
+    + int3d(Th)( D * (dx(c)*dx(v) + dy(c)*dy(v) + dz(c)*dz(v)) ) // Diffusion part
+    // Dirichlet Condition: c = cs on the exposed head (label = 1)
+    + on(2, c = cs); 
+    // The Neumann Condition (-D grad c · n = 0) for the protected shank 
+    // is the "natural" BC and is automatically satisfied by the weak form.
+
+
+// 7. TIME ITERATIONS LOOP
+int[int] Order = [1];        // VTK export parameter
+string DataName = "concentration";
+
+for (tCurr = 0; tCurr <= Tmax; tCurr += dt) {
+    // Step A: Store the current solution as 'cold' before solving for the next step
+    cold = c; 
+    
+    // Step B: Solve the linear system defined in the 'transport' problem
+    transport; 
+    
+    //cout << "Step for Time = " << tCurr << " solved successfully." << endl;
+    
+    cout << "Step " << step << " Time = " << tCurr << " solved." << endl;
+
+
+    // Step C: Save the result to a .vtu file for 3D visualization in PyVista
+    // Each file is named with the current time (e.g., bolt_hydrogen_0.1.vtk)
+    //savevtk("bolt_hydrogen_" + tCurr + ".vtk", Th, c, dataname=DataName, order=Order);
+// USIAMO 'step' invece di 'tCurr' nel nome per l'ordinamento numerico
+    savevtk("bolt_hydrogen_" + step + ".vtk", Th, c, dataname=DataName, order=Order);
+    step++;
+
+}
+
+Vh zCoord = z; 
+cout << "La vite va da Z = " << zCoord[].min << " a Z = " << zCoord[].max << endl;

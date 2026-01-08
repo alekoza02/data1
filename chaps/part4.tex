@@ -2,7 +2,7 @@
 \section{Exercise with FreeFem++}
 
 \subsection{Exercise 1}
-Deformation of an Elliptical Membrane with Spatially Varying Stiffness
+Deformation of an Elliptical Membrane with Spatially Varying Stiffness.
 
 \paragraph{Case 1}: 
 \begin{lstlisting}[style=cppstyle]
@@ -109,19 +109,19 @@ medit("u", Th, u, wait=debug);
     \begin{minipage}{0.32\linewidth}
         \centering
         \includegraphics[width=\linewidth]{images/fra_ex_1_2_K1.png}
-        \caption*{K = 1}
+        \caption*{K\_stiff = 1}
     \end{minipage}
     \hfill
     \begin{minipage}{0.32\linewidth}
         \centering
         \includegraphics[width=\linewidth]{images/fra_ex_1_2_K10.png}
-        \caption*{K = 10}
+        \caption*{K\_stiff = 10}
     \end{minipage}
     \hfill
     \begin{minipage}{0.32\linewidth}
         \centering
         \includegraphics[width=\linewidth]{images/fra_ex_1_2_K1000.png}
-        \caption*{K = 1000}
+        \caption*{K\_stiff = 100}
     \end{minipage}
     \caption{Case 2: Piecewise constant stiffness (material zones)}
     \label{fig:fra_ex_1_2}
@@ -131,4 +131,202 @@ medit("u", Th, u, wait=debug);
 \paragraph{\textcolor{red}{Comments case 2}} If K increases, the gradient in the plot is more marked.
 
 \newpage
-\subsection{\textcolor{red}{Exercise 2}}
+\subsection{3D HYDROGEN DIFFUSION IN A BOLT}
+This script simulates the diffusion of hydrogen in a 3D bolt using the Backward Euler time-stepping scheme.
+
+\begin{lstlisting}[style=cppstyle]
+// Load the library required to export results for Paraview/PyVista
+load "iovtk"
+
+// 1. MESH LOADING
+mesh3 Th("vite_ale_refined.mesh"); 
+
+// Bolt height: 4.05 (From gmsh project)
+// Bolt width: 2 (From gmsh project)
+// We assume all units of measure are in `cm'
+
+// 2. PHYSICAL PARAMETERS
+real cs = 10e-5;        // Surface concentration (exercise constraint)
+real l = 0.1;           // Smoothness parameter for the transition (exercise constraint)
+real dhead = 1.6e-6;    // Diffusion coefficient in the bolt head in cm^2/s (Assumed values)
+real dshank = 0.8e-6;   // Diffusion coefficient in the shank in cm^2/s (Assumed values)
+real z0 = 0.5;          // Vertical position (z) of the head-shank interface
+
+// Define the Diffusion Coefficient as a function of space D(z).
+// We use a hyperbolic tangent `s' to create a smooth transition 
+// between dhead and dshank to avoid numerical instability.
+func s = 0.5 * (1 + tanh((z - z0) / l));
+func D = dhead + (dshank - dhead) * s;
+
+// 3. FINITE ELEMENT SPACE
+// We define a P1 space (piecewise linear functions) on the mesh.
+// c: current concentration, v: test function, cold: previous time step
+fespace Vh(Th, P1);   
+Vh c, v, cold;
+
+// 4. TIME PARAMETERS
+real dt = 3600;          // Time step size [seconds]
+real Tmax = 3600 * 10;        // Final simulation time (10 hours)
+real tCurr = 0.0;       // Current time (renamed from 'time' to avoid warnings)
+int step = 0;
+
+// 5. INITIAL CONDITION
+// At t = 0, the bolt has zero hydrogen concentration.
+c = 0;                  
+
+// 6. WEAK FORMULATION (Backward Euler)
+// The equation discretized is: (c^n - c^{n-1})/dt - div(D * grad(c^n)) = 0
+// Weak form: $\int$ (c/dt)*v - $\int$ (cold/dt)*v + $\int$ D*grad(c) dot grad(v) = 0
+problem transport(c, v)
+    = int3d(Th)( (c / dt) * v )                
+    - int3d(Th)( (cold / dt) * v )             
+    + int3d(Th)( D * (dx(c)*dx(v) + dy(c)*dy(v) + dz(c)*dz(v)) )
+    // Dirichlet Condition: c = cs on the exposed head (label = 2)
+    + on(2, c = cs); 
+    // The Neumann Condition (-D grad c dot n = 0) for the protected shank 
+    // is the "natural" BC and is automatically satisfied by the weak form.
+
+// 7. TIME ITERATIONS LOOP
+int[int] Order = [1];        // VTK export parameter
+string DataName = "concentration";
+
+for (tCurr = 0; tCurr <= Tmax; tCurr += dt) {
+    // Step A: Store the current solution as 'cold' before solving for the next step
+    cold = c; 
+    
+    // Step B: Solve the linear system defined in the 'transport' problem
+    transport; 
+
+    // Step C: Save the result to a .vtk file for 3D visualization in PyVista
+    // Each file is named with the current time (e.g., bolt_hydrogen0.1.vtk)
+    savevtk("bolt_hydrogen_" + step + ".vtk", Th, c, dataname=DataNae, order=Ordpng;
+
+    step++;
+}
+
+Vh zCoord = z; 
+\end{lstlisting}
+
+
+\begin{lstlisting}[style=pythonstyle]
+import pyvista as pv
+import glob
+import os
+import re
+
+edpfile="ex_2_fra_corretto.edp"
+command="FreeFem++ "
+string=command+edpfile
+print(f"Esecuzione di: {string}")
+os.system(string)
+\end{lstlisting}
+
+\begin{lstlisting}[style=pythonstyle]
+# File selection and sorting
+# Natural sort (1, 2, 10 instead of 1, 10, 2)
+def natural_sort(l): 
+    return sorted(l, key=lambda x: int(re.findall(r'\d+', x)[0]) if re.findall(r'\d+', x) else 0)
+
+vtk_files = natural_sort(glob.glb("bolt_hydrogen_*.vtpng)
+
+if not vtk_files:
+    raise RuntimeError("No fil bolt_hydrogen_*.vtk founpng)
+print(f"Found {len(vtk_files)} VTK files")
+\end{lstlisting}
+
+\begin{lstlisting}[style=pythonstyle]
+zs = [0.08, 0.12, 0.25, 3]  # slices inside the head and the shank
+cs_value = 10e-5            # as in the .edp file 
+
+for i in range(0, len(vtk_files)):
+    fname = vtk_files[i]
+    print(f"Plot timestep {i}: {fname}")
+
+    mesh = pv.read(fname)
+
+    for z in zs:
+        # Mesh slicing
+        slc = mesh.slice(normal='z', origin=(0, 0, z))
+        
+        # If slice intersects the mesh: plot
+        if slc.n_points > 0:
+            p = pv.Plotter()
+            # ADDED: force custom range
+            p.add_mesh(slc, 
+                       scalars="concentration", 
+                       cmap="turbo", 
+                       clim=[0, cs_value]) 
+            
+            p.add_text(f"File: {fname}, z = {z}", font_size=10)
+            p.view_xy() # Frontal 2D view
+            p.screenshot(f"{fname}_{z}.png", transparent_background= True) 
+\end{lstlisting}
+
+\newpage
+\subsection{Image dump}
+
+Here are 4 columns of images representing the time evolution at different height sections
+
+\begin{center}
+\begin{minipage}{0.3\textwidth}
+  \centering
+  \textbf{0.08 cm}\\
+  \textbf{0h} \includegraphics[height=40pt, trim=175 0 30 90, clip]{VITEEEEEE/0_008.jpg}\\
+  \textbf{1h} \includegraphics[height=40pt, trim=175 0 30 90, clip]{VITEEEEEE/1_008.jpg}\\
+  \textbf{2h} \includegraphics[height=40pt, trim=175 0 30 90, clip]{VITEEEEEE/2_008.jpg}\\
+  \textbf{3h} \includegraphics[height=40pt, trim=175 0 30 90, clip]{VITEEEEEE/3_008.jpg}\\
+  \textbf{4h} \includegraphics[height=40pt, trim=175 0 30 90, clip]{VITEEEEEE/4_008.jpg}\\
+  \textbf{5h} \includegraphics[height=40pt, trim=175 0 30 90, clip]{VITEEEEEE/5_008.jpg}\\
+  \textbf{6h} \includegraphics[height=40pt, trim=175 0 30 90, clip]{VITEEEEEE/6_008.jpg}\\
+  \textbf{7h} \includegraphics[height=40pt, trim=175 0 30 90, clip]{VITEEEEEE/7_008.jpg}\\
+  \textbf{8h} \includegraphics[height=40pt, trim=175 0 30 90, clip]{VITEEEEEE/8_008.jpg}\\
+  \textbf{9h} \includegraphics[height=40pt, trim=175 0 30 90, clip]{VITEEEEEE/9_008.jpg}\\
+  \textbf{10h} \includegraphics[height=40pt, trim=175 0 30 90, clip]{VITEEEEEE/10_008.jpg}
+\end{minipage}\hfill
+\begin{minipage}{0.2\textwidth}
+  \centering
+  \textbf{0.12 cm}\\
+  \includegraphics[height=40pt, trim=175 0 30 90, clip]{VITEEEEEE/0_012.jpg}\\
+  \includegraphics[height=40pt, trim=175 0 30 90, clip]{VITEEEEEE/1_012.jpg}\\
+  \includegraphics[height=40pt, trim=175 0 30 90, clip]{VITEEEEEE/2_012.jpg}\\
+  \includegraphics[height=40pt, trim=175 0 30 90, clip]{VITEEEEEE/3_012.jpg}\\
+  \includegraphics[height=40pt, trim=175 0 30 90, clip]{VITEEEEEE/4_012.jpg}\\
+  \includegraphics[height=40pt, trim=175 0 30 90, clip]{VITEEEEEE/5_012.jpg}\\
+  \includegraphics[height=40pt, trim=175 0 30 90, clip]{VITEEEEEE/6_012.jpg}\\
+  \includegraphics[height=40pt, trim=175 0 30 90, clip]{VITEEEEEE/7_012.jpg}\\
+  \includegraphics[height=40pt, trim=175 0 30 90, clip]{VITEEEEEE/8_012.jpg}\\
+  \includegraphics[height=40pt, trim=175 0 30 90, clip]{VITEEEEEE/9_012.jpg}\\
+  \includegraphics[height=40pt, trim=175 0 30 90, clip]{VITEEEEEE/10_012.jpg}
+\end{minipage}\hfill
+\begin{minipage}{0.2\textwidth}
+  \centering
+  \textbf{0.25 cm}\\
+  \includegraphics[height=40pt, trim=175 0 30 90, clip]{VITEEEEEE/bolt_hydrogen_0.vtk_0.25.png}\\
+  \includegraphics[height=40pt, trim=175 0 30 90, clip]{VITEEEEEE/bolt_hydrogen_1.vtk_0.25.png}\\
+  \includegraphics[height=40pt, trim=175 0 30 90, clip]{VITEEEEEE/bolt_hydrogen_2.vtk_0.25.png}\\
+  \includegraphics[height=40pt, trim=175 0 30 90, clip]{VITEEEEEE/bolt_hydrogen_3.vtk_0.25.png}\\
+  \includegraphics[height=40pt, trim=175 0 30 90, clip]{VITEEEEEE/bolt_hydrogen_4.vtk_0.25.png}\\
+  \includegraphics[height=40pt, trim=175 0 30 90, clip]{VITEEEEEE/bolt_hydrogen_5.vtk_0.25.png}\\
+  \includegraphics[height=40pt, trim=175 0 30 90, clip]{VITEEEEEE/bolt_hydrogen_6.vtk_0.25.png}\\
+  \includegraphics[height=40pt, trim=175 0 30 90, clip]{VITEEEEEE/bolt_hydrogen_7.vtk_0.25.png}\\
+  \includegraphics[height=40pt, trim=175 0 30 90, clip]{VITEEEEEE/bolt_hydrogen_8.vtk_0.25.png}\\
+  \includegraphics[height=40pt, trim=175 0 30 90, clip]{VITEEEEEE/bolt_hydrogen_9.vtk_0.25.png}\\
+  \includegraphics[height=40pt, trim=175 0 30 90, clip]{VITEEEEEE/bolt_hydrogen_10.vtk_0.25.png}
+\end{minipage}\hfill
+\begin{minipage}{0.2\textwidth}
+  \centering
+  \textbf{3 cm}\\
+  \includegraphics[height=40pt, trim=175 0 30 90, clip]{VITEEEEEE/0_3.jpg}\\
+  \includegraphics[height=40pt, trim=175 0 30 90, clip]{VITEEEEEE/1_3.jpg}\\
+  \includegraphics[height=40pt, trim=175 0 30 90, clip]{VITEEEEEE/2_3.jpg}\\
+  \includegraphics[height=40pt, trim=175 0 30 90, clip]{VITEEEEEE/3_3.jpg}\\
+  \includegraphics[height=40pt, trim=175 0 30 90, clip]{VITEEEEEE/4_3.jpg}\\
+  \includegraphics[height=40pt, trim=175 0 30 90, clip]{VITEEEEEE/5_3.jpg}\\
+  \includegraphics[height=40pt, trim=175 0 30 90, clip]{VITEEEEEE/6_3.jpg}\\
+  \includegraphics[height=40pt, trim=175 0 30 90, clip]{VITEEEEEE/7_3.jpg}\\
+  \includegraphics[height=40pt, trim=175 0 30 90, clip]{VITEEEEEE/8_3.jpg}\\
+  \includegraphics[height=40pt, trim=175 0 30 90, clip]{VITEEEEEE/9_3.jpg}\\
+  \includegraphics[height=40pt, trim=175 0 30 90, clip]{VITEEEEEE/10_3.jpg}
+\end{minipage}
+\end{center}
+
