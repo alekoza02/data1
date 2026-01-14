@@ -1,9 +1,29 @@
 \section{Exercises with Jupyter \& Machine Learning}
 
 \subsection{Module 1}
-\paragraph{TODO 1-2} 
+\paragraph{TODO 1-2}
 How do the MSE\_train and MSE\_test compare between the linear and quadratic model?
 Try to change the size of the datasets (m=50, 200, 500) and see how MSE\_train and MSE\_test change. 
+
+\begin{lstlisting}
+for MSE_train_linear, MSE_test_linear, MSE_train_quadratic, MSE_test_quadratic, sample in zip(MSE_linears_train, MSE_linears_test, MSE_poly_train, MSE_poly_test, samples):
+
+    print(f"RESULTS OF {sample}:")
+
+    print(f"\tDelta between training (linear - quadratic): {abs(MSE_train_linear - MSE_train_quadratic)}")
+    print(f"\tDelta between testing (linear - quadratic): {abs(MSE_test_linear - MSE_test_quadratic)}")
+
+
+    print(f"\t{MSE_train_linear = }")
+    print(f"\t{MSE_train_quadratic = }")
+    print(f"\t{MSE_test_linear = }")
+    print(f"\t{MSE_test_quadratic = }")
+
+    print(f"\tThe best model is the {'linear' if MSE_test_linear < MSE_test_quadratic else 'quadratic'}")
+
+    print(f"\n")
+\end{lstlisting}
+
 First exploration of basic ML algorithms. 
 The Mean Squared Error (MSE) measures how well the model is able to explain the data it was trained on.
 A low MSE means that the model fits well the data.
@@ -13,25 +33,66 @@ Overall we are testing which model has the LOWEST MSE in test environment.
 \begin{table}[!ht]
 \centering
 % \resizebox{\textwidth}{!}{%
-\begin{tabular}{c|c|c|c|c|c|c|c}
+\begin{tabular}{c|c|c|c|c|c|c}
 \hline
-$N$ & $\text{MSE}_\text{train, linear}$ & $\text{MSE}_\text{train, quad}$ & $\text{MSE}_\text{test, linear}$ & $\text{MSE}_\text{test, quad}$ & \text{Best Model} \\
+$N$ & $\text{MSE}_\text{train, linear}$ & $\text{MSE}_\text{test, linear}$ & $\text{MSE}_\text{train, quad}$ & $\text{MSE}_\text{test, quad}$ \\
 \hline
-50    & \cellcolor{myred} 2.24 & \cellcolor{mygreen} 1.29 & \cellcolor{myred} 3.05 & \cellcolor{mygreen} 0.87 & \text{Quadratic} \\
-100   & \cellcolor{myred} 3.17 & \cellcolor{mygreen} 0.96 & \cellcolor{myred} 2.24 & \cellcolor{mygreen} 1.22 & \text{Quadratic} \\
-200   & \cellcolor{myred} 2.36 & \cellcolor{mygreen} 0.88 & \cellcolor{myred} 3.36 & \cellcolor{mygreen} 1.19 & \text{Quadratic} \\
-500   & \cellcolor{myred} 2.76 & \cellcolor{mygreen} 1.08 & \cellcolor{myred} 2.72 & \cellcolor{mygreen} 0.85 & \text{Quadratic} \\
-1000  & \cellcolor{myred} 2.90 & \cellcolor{mygreen} 1.00 & \cellcolor{myred} 2.93 & \cellcolor{mygreen} 1.13 & \text{Quadratic} \\
-2000  & \cellcolor{myred} 2.74 & \cellcolor{mygreen} 0.99 & \cellcolor{myred} 2.64 & \cellcolor{mygreen} 0.99 & \text{Quadratic} \\
-5000  & \cellcolor{myred} 2.74 & \cellcolor{mygreen} 0.97 & \cellcolor{myred} 2.73 & \cellcolor{mygreen} 0.97 & \text{Quadratic} \\
+50    & \cellcolor{myred} 2.24 & \cellcolor{myred} 3.05 & \cellcolor{mygreen} 1.29 & \cellcolor{mygreen} 0.87 \\
+100   & \cellcolor{myred} 3.17 & \cellcolor{myred} 2.24 & \cellcolor{mygreen} 0.96 & \cellcolor{mygreen} 1.22 \\
+200   & \cellcolor{myred} 2.36 & \cellcolor{myred} 3.36 & \cellcolor{mygreen} 0.88 & \cellcolor{mygreen} 1.19 \\
+500   & \cellcolor{myred} 2.76 & \cellcolor{myred} 2.72 & \cellcolor{mygreen} 1.08 & \cellcolor{mygreen} 0.85 \\
+1000  & \cellcolor{myred} 2.90 & \cellcolor{myred} 2.93 & \cellcolor{mygreen} 1.00 & \cellcolor{mygreen} 1.13 \\
+2000  & \cellcolor{myred} 2.74 & \cellcolor{myred} 2.64 & \cellcolor{mygreen} 0.99 & \cellcolor{mygreen} 0.99 \\
+5000  & \cellcolor{myred} 2.74 & \cellcolor{myred} 2.73 & \cellcolor{mygreen} 0.97 & \cellcolor{mygreen} 0.97 \\
 \hline
 \end{tabular}%
 % }
-\caption{Comparison of Linear and Quadratic Models for Different Sample Sizes $N$.}
+\caption{Comparison of Linear and Quadratic Models for Different Sample Sizes $N$. For all the sample sizes, the best model is quadratic.}
 \end{table}
 
-\paragraph{TODO 3} 
+\paragraph{TODO 3}  
 Compute the MSE for tree\_reg3 and tree\_reg4 models, both on the training set and on the test set. 
+
+\begin{lstlisting}
+results_trees3 = []
+
+for result, tree_reg3 in zip(results_linear, tree_regs3):
+    
+    X_train, X_test, y_train, y_test = result
+
+    y_train_pred = tree_reg3.predict(X_train)
+    MSE_train_treereg3 = mean_squared_error(y_train, y_train_pred)
+    y_test_pred = tree_reg3.predict(X_test)
+    MSE_test_treereg3 = mean_squared_error(y_test, y_test_pred)
+    results_trees3.append([MSE_train_treereg3, MSE_test_treereg3])
+
+results_trees4 = []
+
+for result, tree_reg4 in zip(results_linear, tree_regs4):
+    
+    X_train, X_test, y_train, y_test = result
+
+    y_train_pred = tree_reg4.predict(X_train)
+    MSE_train_treereg4 = mean_squared_error(y_train, y_train_pred)
+    y_test_pred = tree_reg4.predict(X_test)
+    MSE_test_treereg4 = mean_squared_error(y_test, y_test_pred)
+    results_trees4.append([MSE_train_treereg4, MSE_test_treereg4])
+
+for tree3, tree4, sample in zip(results_trees3, results_trees4, samples):
+
+    MSE_train_tree3, MSE_test_tree3 = tree3
+    MSE_train_tree4, MSE_test_tree4 = tree4
+
+    print(f"RESULTS OF {sample}:")
+    
+    print(f"\t{MSE_train_tree3 = }")
+    print(f"\t{MSE_test_tree3 = }")
+    print(f"\t{MSE_train_tree4 = }")
+    print(f"\t{MSE_test_tree4 = }")
+
+    print(f"\n")
+\end{lstlisting}
+
 Demonstration of the overfitting problem using regularization in decision trees (\texttt{min\_samples\_leaf=10}). 
 Since we generalized the code to support many different sample sizes, we tested it out with the following N: (50, 100, 200, 500, 1000, 2000, 5000).
 
@@ -52,7 +113,7 @@ $N$ & $\text{MSE}_\text{train, N}$ & $\text{MSE}_\text{test, N}$ & $\text{MSE}_\
 \hline
 \end{tabular}%
 % }
-\caption{Comparison of Tree Models (Y = with regularization, N = without regularization) for Different Sample Sizes $N$.}
+\caption{Comparison of Tree Models (Y = with regularization, N = without regularization) for Different Sample Sizes $N$. Because of overfitting, the $\text{MSE}_{\text{train}}$ results are 0 (1° column): the model fits exactly the data without understanding the general function. The 3° column has a higher MSE, which is technically worse, but this is expected from a data with noise and a non-overfitting ML model. From the 2° column we notice that it performs poorly compared to the regularized version (4° column): the model is able to adapt to new problems with a higher success rate.}
 \end{table}
 
 \paragraph{TODO 4} 
@@ -148,40 +209,39 @@ $N$ & \text{Default RF Train MSE} & \text{Default RF Test MSE} & \text{Regulariz
 \caption{Comparison of Default and Regularized Random Forest Models for Different Sample Sizes $N$.}
 \end{table}
 
-
 \begin{figure}[H]
     \centering
-    \includegraphics[width=\linewidth]{images/rf_comparison_50.jpg}
+    \includegraphics[width=0.9\linewidth]{images/rf_comparison_50.jpg}
     \caption{50 samples}
     \label{fig:rf_comparison_50}
 \end{figure}
 \begin{figure}[H]
     \centering
-    \includegraphics[width=\linewidth]{images/rf_comparison_100.jpg}
+    \includegraphics[width=0.9\linewidth]{images/rf_comparison_100.jpg}
     \caption{100 samples}
     \label{fig:rf_comparison_100}
 \end{figure}
 \begin{figure}[H]
     \centering
-    \includegraphics[width=\linewidth]{images/rf_comparison_200.jpg}
+    \includegraphics[width=0.9\linewidth]{images/rf_comparison_200.jpg}
     \caption{200 samples}
     \label{fig:rf_comparison_200}
 \end{figure}
 \begin{figure}[H]
     \centering
-    \includegraphics[width=\linewidth]{images/rf_comparison_500.jpg}
+    \includegraphics[width=0.9\linewidth]{images/rf_comparison_500.jpg}
     \caption{500 samples}
     \label{fig:rf_comparison_500}
 \end{figure}
 \begin{figure}[H]
     \centering
-    \includegraphics[width=\linewidth]{images/rf_comparison_1000.jpg}
+    \includegraphics[width=0.9\linewidth]{images/rf_comparison_1000.jpg}
     \caption{1000 samples}
     \label{fig:rf_comparison_1000}
 \end{figure}
 \begin{figure}[H]
     \centering
-    \includegraphics[width=\linewidth]{images/rf_comparison_2000.jpg}
+    \includegraphics[width=0.9\linewidth]{images/rf_comparison_2000.jpg}
     \caption{2000 samples}
     \label{fig:rf_comparison_2000}
 \end{figure}
@@ -228,8 +288,9 @@ plt.show()
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=\linewidth]{images/n_estimators_comparison.jpg}
+    \includegraphics[width=0.7\linewidth]{images/n_estimators_comparison.jpg}
     \label{fig:n_estimators_comparison}
+    \caption{We see here how the amount of N estimators does not change particularly the outcome of the model. Probably the reason is that the problem was so simple that with 100 estimators, the Test MSE reached a stable plateau. We should probably focus on other hyperparameters to obtain a better result.}
 \end{figure}
 
 \paragraph{TODO 6 (optional)} 
@@ -264,8 +325,9 @@ plt.show()
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=\linewidth]{images/max_depth_comparison.jpg}
+    \includegraphics[width=0.7\linewidth]{images/max_depth_comparison.jpg}
     \label{fig:max_depth_comparison}
+    \caption{\texttt{None} means that no maximum depth is enforced. As the maximum depth increases, the training MSE decreases because the trees overfit the data, because of this overfitting the MSE of the test set increases as the complexity of the model increases. Since this dataset is generated from a simple noisy parabola, a smaller depth provides the best bias-variance trade-off: the best max\_depth is 5, since we got the smallest MSE in the test dataset.}
 \end{figure}
 
 \subsection{Module 2}

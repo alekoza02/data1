@@ -1,8 +1,7 @@
 \newpage
 \section{Exercise with FreeFem++}
 
-\subsection{Exercise 1}
-Deformation of an Elliptical Membrane with Spatially Varying Stiffness.
+\subsection{Ex 1: Deformation of an Elliptical Membrane with Spatially Varying Stiffness}
 
 \paragraph{Case 1}: 
 \begin{lstlisting}[style=cppstyle]
@@ -134,7 +133,7 @@ When employing two coefficients, $k_{\mathrm{soft}}$ and $k_{\mathrm{stiff}}$, t
 
 
 \newpage
-\subsection{3D HYDROGEN DIFFUSION IN A BOLT}
+\subsection{Ex 2: 3D Hydrogen Diffusion in a Bolt}
 This script simulates the diffusion of hydrogen in a 3D bolt using the Backward Euler time-stepping scheme.
 
 \begin{lstlisting}[style=cppstyle]
@@ -264,6 +263,15 @@ for i in range(0, len(vtk_files)):
             p.view_xy() # Frontal 2D view
             p.screenshot(f"{fname}_{z}.png", transparent_background= True) 
 \end{lstlisting}
+
+\vspace{1cm}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth]{images/logo_vite.png}
+    \caption{Wireframe mesh model of the bolt}
+    \label{fig:3d_mesh_wireframe}
+\end{figure}
 
 \newpage
 \subsection{Image dump}
