@@ -75,7 +75,7 @@ Fraction of each phase:
 \end{figure}
 
 In the free energy curve diagram, we can see 2 curves, G(@Liquid) and G(@Fcc). When these curves intersect, there is a region where the system can minimize its energy by following a straight line that is tangent to both curves. This line is representing the lowest possible free energy for the system and the 2 points where this line touches the curves define the equilibrium composition.
-XL is the composition of the liquid phase and X$\alpha$ is the composition of the $\alpha$ (solid) phase.
+$X^L$ is the composition of the liquid phase and $X^{\alpha}$ is the composition of the $\alpha$ (solid) phase.
 As the temperature changes, the relative vertical position of the liquid and solid G curve change. We can see that:
 \begin{itemize}
     \item At T=1100°C the solid curve is shifted significantly down compared to the liquid curve, and the two curves intersect only at a very low nickel concentration.(See Fig. \ref{fig:dario3_comp})
@@ -83,7 +83,7 @@ As the temperature changes, the relative vertical position of the liquid and sol
     \item At T=1300°C, as temperature increases, the liquid phase becomes more stable relative to the solid and the common tangent shift to the center (higher Ni concentration).(See Fig. \ref{fig:dario5_comp})
     \item At T=1400°C the curves intersect near the Ni side and the common tangent points move to the right(See Fig. \ref{fig:dario1_comp})
 \end{itemize}    
-So, by repeating this process at every temperature we can trace out two continuous lines, the liquidus line (formed by connecting all the XL points) and the solidus line (formed by connecting all the X$\alpha$ points).
+So, by repeating this process at every temperature we can trace out two continuous lines, the liquidus line (formed by connecting all the $X^L$ points) and the solidus line (formed by connecting all the $X^{\alpha}$ points).
 
 % \begin{figure}[H]
 %     \centering
@@ -126,7 +126,7 @@ We calculated 4 phase diagrams corresponding to different combinations the value
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.75\linewidth]{images/0_0.jpg}
-    \caption{$\Omega_l$ = 0, $\Omega_s$ = 0; Using a regular solution parameter = 0 means that here, the model used is the ideal solution, hence, $\Delta H_{mix}$ here is null.}
+    \caption{$\Omega_l$ = 0, $\Omega_s$ = 0; Using a regular solution parameter = 0 means that here the model used is the ideal solution, hence, $\Delta H_{mix}$ here is null.}
     \label{fig:myimage1}
 \end{figure}
 \begin{figure}[H]
@@ -199,7 +199,7 @@ We compute the free energy curves at different constant temperatures as a functi
 % \end{figure}
 
 At x(Ag) = 0 (Fig. \ref{fig:myimage7}) we have the melting point of Cu.
-In this case using the free energy curves we know that we have one-phase field, and the liquid is stable in any composition. We can say that at 1100 C we have only the liquid phase.
+In this case using the free energy curves we know that we have one-phase field, and the liquid is stable in any composition. We can say that at 1100 °C we have only the liquid phase.
 
 % \begin{figure}[H]
 %     \centering
@@ -254,9 +254,8 @@ We observe the presence of two-phase fields Cu + Ag (From X$^{Cu}$ to X$^{Ag}$) 
     \label{fig:myimage15}
 \end{figure}
 
-At 500°C (Fig. \ref{fig:myimage15}) we can observe that the free energy of the liquid phase Increase and gets distant to that of the solid one, and that the two-phase fields Cu + Ag is becoming larger.
-If we combine all the information obtained with the energy curve at different temperature, we can create the phase diagram 
-If we use more temperature we will obtain a more precise phase diagram.
+At 500°C (Fig. \ref{fig:myimage15}) the free energy of the liquid phase is increased, moving up and away from that of the solid one; the two-phase fields Cu + Ag are becoming larger.
+Combining all the information obtained with the energy curves at different temperatures, it is possible to create the phase diagram.
 
 % \begin{figure}[H]
 %     \centering
@@ -287,16 +286,16 @@ calculations for a Cu-Sn alloy with composition 5 at $\%Sn$.
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=\linewidth]{images/solidification_curves.jpg}
-    \caption{The graph compares the solidification temperature ($T$) as a function of the fraction of solid ($f_s$) for a Cu-5at$\%Sn$ alloy using two distinct thermodynamic models. Both models coincide  between $f_s = 0$ and $0.2$, where the first solid particles of Fcc (copper-rich $\alpha$ phase) begin to form at approximately 1010°C. As solidification progresses, the curves diverge. Under Lever Rule conditions, solidification completes at roughly 800°C, while in the Scheil simulation, we assume that there is not diffusion in the solid, causing the remaining liquid to become increasingly enriched with Sn. This lowers the liquidus temperature more aggressively than the equilibrium model.
+    \includegraphics[width=0.75\linewidth]{images/solidification_curves.jpg}
+    \caption{The graph compares the solidification temperature ($T$) as a function of the fraction of solid ($f_s$) for a $Cu$-5at$\%Sn$ alloy using two distinct thermodynamic models. Both models coincide  between $f_s = 0$ and $0.2$, where the first solid particles of Fcc (copper-rich $\alpha$ phase) begin to form at approximately 1010°C. As solidification progresses, the curves diverge. Under Lever Rule conditions, solidification completes at roughly 800°C, while in the Scheil simulation, we assume that there is not diffusion in the solid, causing the remaining liquid to become increasingly enriched with Sn. This lowers the liquidus temperature more aggressively than the equilibrium model.
     In addition to this, we notice 2 phase transitions that are not visible in the lever rule curve, nor in the phase diagram at this specific composition (see figure \ref{fig:solidification2}). The final solidification of the remaining liquid in the Scheil model is nearly 140°C lower than predicted by the Lever Rule.}
     \label{fig:solidification}
 \end{figure}
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=\linewidth]{images/immagine_fra.jpg}
-    \caption{\textcolor{red}{Fra fai la tua magia} The vertical line is the composition @ 0.05 of $Cu$ and the horizontal line cuts the range of temperatures between 600°C and 1100°C as in the solidification curve in figure \ref{fig:solidification}}
+    \includegraphics[width=0.75\linewidth]{images/immagine_fra.jpg}
+    \caption{The vertical line is the composition @ 0.05 of $Sn$ and the horizontal line cuts the range of temperatures between 600°C and 1100°C as in the solidification curve in figure \ref{fig:solidification}. The phase transformations seen are: $Liq \to \alpha-Cu + Liq \to \alpha-Cu$ where $\alpha-Cu$ is the phase with fcc structure.}
     \label{fig:solidification2}
 \end{figure}
 
