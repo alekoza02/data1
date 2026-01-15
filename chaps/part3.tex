@@ -30,7 +30,8 @@
     \label{fig:dome_2}
 \end{figure}
 
-\noindent Ashby charts:
+\newpage
+\noindent \textbf{Ashby charts:}
 
 \begin{figure}[H]
     \centering
@@ -64,6 +65,8 @@ Applying the material indices formula, we positioned a straight line with a slop
 
 \noindent As can be seen from the graphs, the lines have been positioned so as to mediate on the selection of properties.
 
+\newpage
+
 \paragraph{Limit:} We have set a limit on the geometry of our material so that it is as similar as possible to a bicycle helmet, as shown in Fig. \ref{fig:forma}. This limit allows the program to select all materials that can achieve the desired shape through various industrial processes.
 
 \begin{figure}[H]
@@ -72,6 +75,8 @@ Applying the material indices formula, we positioned a straight line with a slop
     \caption{Selection of the closest resembling geometrical shape}
     \label{fig:forma}
 \end{figure}
+
+\vspace{1cm}
 
 \paragraph{Cost:} We set up the material index based on cost (see Fig. \ref{fig:dome_3}):
 
@@ -82,14 +87,16 @@ Applying the material indices formula, we positioned a straight line with a slop
     \label{fig:dome_3}
 \end{figure}
 
+\newpage
+
+\noindent This time, we positioned the line so as to select only one candidate material, which corresponds to the most economical helmet option, as shown in Fig. \ref{fig:cip_ciop}.
+
 \begin{figure}[H]
     \centering
     \includegraphics[width=\linewidth]{images/costo.JPG}
     \caption{Price vs Flexural modulus Ashby chart}
     \label{fig:costo}
 \end{figure}
-
-This time, we positioned the line so as to select only one candidate material, which corresponds to the most economical helmet option, as shown in Fig. \ref{fig:cip_ciop}.
 
 \begin{figure}[H]
     \centering
@@ -107,6 +114,8 @@ This time, we positioned the line so as to select only one candidate material, w
     \label{fig:fir_footprint}
 \end{figure}
 
+\newpage
+
 \paragraph{Selection of the most expensive material:} We removed the material index related to cost so that we could select a material that maximizes the stiffness index. We also applied limits to improve durability: resistance to water, sunlight, and flammability.
 
 \begin{figure}[H]
@@ -123,6 +132,7 @@ This time, we positioned the line so as to select only one candidate material, w
     \label{fig:ashby_map_missing}
 \end{figure}
 
+\newpage
 
 \subsection{Ecoaudit} 
 
@@ -130,19 +140,21 @@ This time, we positioned the line so as to select only one candidate material, w
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=\linewidth]{images/ecoaudit_project_carbon_fiber.JPG}
+    \includegraphics[width=0.75\linewidth]{images/ecoaudit_project_carbon_fiber.JPG}
     \caption{Eco audit carbon fiber}
     \label{fig:ecoaudit_carbon}
 \end{figure}
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=\linewidth]{images/ecoaudit_project_fir.JPG}
+    \includegraphics[width=0.75\linewidth]{images/ecoaudit_project_fir.JPG}
     \caption{Eco audit fir}
     \label{fig:ecoaudit_fir}
 \end{figure}
 
-To do this, we had to compile the various categories by entering the values for Fir (Abies lasiocarpa) (l) and Cyanate ester/HM carbon fiber in the Eco Audit Project, taking into account the recycling and end-of-life parameters present in the database for the two materials (figures below).
+\newpage
+
+\noindent To do this, we had to compile the various categories by entering the values for Fir (Abies lasiocarpa) (l) and Cyanate ester/HM carbon fiber in the Eco Audit Project, taking into account the recycling and end-of-life parameters present in the database for the two materials (figures below).
 
 \begin{figure}[H]
     \centering
@@ -158,7 +170,9 @@ To do this, we had to compile the various categories by entering the values for 
     \label{fig:params_cy}
 \end{figure}
 
-In the program section \texttt{Material, manufacture, and end of life} we considered a quantity of 1000 helmets, with no recycled content and an estimated mass of 0.15 kg. For the end of life of the material, Downcycle was chosen for both, as the two materials cannot be recycled.
+\newpage
+
+\noindent In the program section \texttt{Material, manufacture, and end of life} we considered a quantity of 1000 helmets, with no recycled content and an estimated mass of 0.15 kg. For the end of life of the material, Downcycle was chosen for both, as the two materials cannot be recycled.
 
 The mode of transport and distance to be traveled for product distribution were also selected (see fig. \ref{fig:ecoaudit_fir} \& \ref{fig:ecoaudit_carbon}).
 
@@ -180,4 +194,4 @@ We thus obtain the following summary chart:
     \label{fig:co2_char}
 \end{figure}
 
-From the two graphs, we can deduce that for neither product is it possible to offset the $CO_2$ generated in the production processes. From a sustainability perspective, cyanate is worse than FIR, both in terms of the energy required for its production and $CO_2$ emissions. Although FIR does not have better durability and mechanical properties, it has greater advantages in terms of sustainability as it is biodegradable and does not produce significant amounts of $CO_2$ during production.
+\noindent From the two graphs, we can deduce that for neither product is it possible to offset the $CO_2$ generated in the production processes. From a sustainability perspective, cyanate is worse than FIR, both in terms of the energy required for its production and $CO_2$ emissions. Although FIR does not have better durability and mechanical properties, it has greater advantages in terms of sustainability as it is biodegradable and does not produce significant amounts of $CO_2$ during production.

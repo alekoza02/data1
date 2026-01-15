@@ -45,6 +45,14 @@ solve Poisson(u, v, solver=CG)
 medit("u", Th, u, wait=debug);
 \end{lstlisting}
 
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\linewidth]{images/fra_ex_1_1.png}
+    \caption{Case 1: Smooth function of position}
+    \label{fig:fra_ex_1_1}
+\end{figure}
+
+
 \newpage
 \paragraph{Case 2}:
 \begin{lstlisting}[style=cppstyle]
@@ -95,13 +103,6 @@ solve Poisson(u, v, solver=CG)
 // Plot the result
 medit("u", Th, u, wait=debug);
 \end{lstlisting}
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.5\linewidth]{images/fra_ex_1_1.png}
-    \caption{Case 1: Smooth function of position}
-    \label{fig:fra_ex_1_1}
-\end{figure}
 
 \begin{figure}[H]
     \centering
