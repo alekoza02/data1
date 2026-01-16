@@ -361,7 +361,7 @@ plt.show()
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.7\linewidth]{images/max_depth_comparison.jpg}
-    \caption{\texttt{None} means that no maximum depth is enforced. As the maximum depth increases, the training MSE decreases because the trees overfit the data, because of this overfitting the MSE of the test set increases as the complexity of the model increases. Since this dataset is generated from a simple noisy parabola, a smaller depth provides the best bias-variance trade-off: the best max\_depth is 5, since we got the smallest MSE in the test dataset.}
+    \caption{\texttt{None} means that no maximum depth is enforced. As the maximum depth increases, the training MSE decreases because the trees overfit the data. Because of this overfitting, the MSE of the test set increases as the complexity of the model increases. Since this dataset is generated from a simple noisy parabola, a smaller depth provides the best bias-variance trade-off: the best max\_depth is 5, where we got the smallest MSE in the test dataset.}
     \label{fig:max_depth_comparison}
 \end{figure}
 
@@ -391,7 +391,7 @@ Calculate the probabilities for another value of petal width.
     y_proba_1 = log_reg.predict_proba([[6.0]])
     y_proba_1
 \end{lstlisting}
-\textbf{output:} \texttt{array([[6.83166501e-09, 9.99999993e-01]])}, meaning the model is 99.9999993\% sure the answer is the flower is Virginica.
+\textbf{output:} \texttt{array([[6.83166501e-09, 9.99999993e-01]])}, meaning the model is 99.9999993\% sure the answer is Virginica.
 
 \vspace{0.5cm}
 
@@ -519,7 +519,7 @@ y_proba_1 = softmax_reg.predict_proba([[4.0, 1]])
 y_proba_1
 \end{lstlisting}
 \vspace{0.3cm}
-\textbf{output:} \texttt{array([[0.02404399, 0.96249222, 0.01346379]])}, meaning the model is 96.249222\% sure the answer is the flower is Versicolor. Other probabilities are reffered to `setosa' and `virginica'.
+\textbf{output:} \texttt{array([[0.02404399, 0.96249222, 0.01346379]])}, meaning the model is 96.249222\% sure the answer is Versicolor. Other probabilities are reffered to `setosa' and `virginica'.
 
 \newpage
 
